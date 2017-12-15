@@ -1,15 +1,16 @@
 // CONFIG HERE
-var host = "localhost";
-var port = "8888";
-var mongoDB = "mongodb://t0m3k:mithrandir1@ds111876.mlab.com:11876/aurora";
-var secret = "some secret sentence";
+const   host = "localhost",
+        port = "8080",
+        mongoDB = "mongodb://localhost/user",
+        secret = "some secret sentence";
+
 
 
 
 
 // END OF CONFIG
 
-var localConf = {};
+const localConf = {};
 
 localConf.HOST = host;
 

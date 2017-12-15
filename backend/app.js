@@ -4,14 +4,14 @@ var express                 = require('express'),
     mongoose                = require('mongoose'),
     methodOverride          = require('method-override');
 
-const LOCALCONF               = require('./local_conf.js');
+const LOCALCONF             = require('./local_conf.js');
 
 
 // MODELS
-var User                    = require('./src/models/user');
+var User                    = require('./src/models/userModel');
 
 // ROUTES INIT
-var apiRoutes               = require("./src/routes/api");
+var usersRoutes             = require("./src/routes/usersRoutes");
 
 
 var app = express();
@@ -50,11 +50,9 @@ mongoose.connect(MONGODB, {
     useMongoClient: true
 });
 
-
-
 // ROUTES USE
 
-app.use("/", apiRoutes);
+app.use("/users", usersRoutes);
 
 app.listen(PORT, HOST, function(){
     console.log('Server is running!');

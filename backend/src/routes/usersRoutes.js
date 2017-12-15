@@ -1,21 +1,12 @@
 var express                 = require('express'),
-    User                    = require('../models/user'),
+    User                    = require('../models/userModel'),
     middleware              = require("../middleware");
 
 var router = express.Router({mergeParams: true});
 
-router.get("/", function(req, res) {
-    var priv = {};
-    priv.description = "Your privileges";
-    priv.isAdmin = req.user ? req.user.isAdmin : false;
-    priv.read = req.user ? req.user.read : false;
-    priv.write = req.user ? req.user.write : false;
-    res.json(priv);
-});
-
 // all users
 
-router.get("/users", middleware.isAdmin, function(req, res) {
+router.get("/", middleware.isAdmin, function(req, res) {
     User.find({}, function(err, users){
         if(err || !users){
             console.log("Problems with getting users for admin/users: " + err);
