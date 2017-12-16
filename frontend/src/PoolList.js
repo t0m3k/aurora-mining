@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import * as Pools from './PoolsController';
+import * as Pools from './Pools';
 
 class PoolList extends Component {
 
