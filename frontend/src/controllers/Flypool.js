@@ -1,4 +1,4 @@
-export async function get(address, type) {
+export async function get(address, type) { // fetch data from flypool api
     return fetch(`https://api-zcash.flypool.org/miner/${ address }/${ type }`)
     .then(resp => {
       if(!resp.ok) {

@@ -1,21 +1,37 @@
 import React, {Component} from 'react';
+import PoolItem from './PoolItem';
 import * as Pools from './Pools';
 
 class PoolList extends Component {
+    constructor(props){
+      super(props);
+      this.state = {
+        pools: []
+      }
+    }
 
     componentWillMount(){
         this.loadPools();
     }
       
     async loadPools(){
-        let pools = await Pools.getFlypool("t1brFCzBzEBt11pSXRB5KXAzWkrs5HYZryB");
-        console.log(pools);
-        this.setState({pools});
+        let flypool = await Pools.getFlypool("t1brFCzBzEBt11pSXRB5KXAzWkrs5HYZryB");
+        this.setState({pools: [flypool]});
     }
 
     render(){
-        return (
-            <h1>Pool List!</h1>
+        const pools = this.state.pools.map((t) => (
+          <PoolItem
+            key={t._id}
+            {...t}
+          />
+          ));
+        return ( 
+        <div className="ui container">
+            <div className="ui items">
+                    {pools}
+            </div>
+        </div>
         )
     }
 }

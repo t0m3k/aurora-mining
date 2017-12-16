@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class PoolList extends Component {
+class Header extends Component {
     render(){
         return (
             <div className="ui menu">
@@ -21,4 +21,4 @@ class PoolList extends Component {
     }
 }
 
-export default PoolList;
+export default Header;
