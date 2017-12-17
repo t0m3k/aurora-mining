@@ -9,9 +9,9 @@ var UserSchema = mongoose.Schema({
     password: String,
     email: String,
     pools: [{
-        _id: string,
-        name: string,
-        pool: string
+        _id: String,
+        name: String,
+        pool: String
     }],
     isAdmin: Boolean
 });
