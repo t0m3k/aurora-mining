@@ -1,8 +1,8 @@
 var express                 = require('express'),
+    bodyParser              = require('body-parser'),
     passport                = require('passport'),
     LocalStrategy           = require('passport-local'),
-    mongoose                = require('mongoose'),
-    methodOverride          = require('method-override');
+    mongoose                = require('mongoose');
 
 const LOCALCONF             = require('./local_conf.js');
 
@@ -12,6 +12,7 @@ var User                    = require('./src/models/userModel');
 
 // ROUTES INIT
 var usersRoutes             = require("./src/routes/usersRoutes");
+var poolsRoutes             = require("./src/routes/poolsRoutes");
 
 
 var app = express();
@@ -50,10 +51,15 @@ mongoose.connect(MONGODB, {
     useMongoClient: true
 });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+
 // ROUTES USE
 
 app.use("/users", usersRoutes);
+app.use("/pools", poolsRoutes);
 
 app.listen(PORT, HOST, function(){
-    console.log('Server is running!');
+    console.log('Server is running at');
+    console.log(`http://${HOST}:${PORT}`);
 });
