@@ -1,8 +1,16 @@
 var mongoose = require('mongoose');
 
 var PoolSchema = mongoose.Schema({
-    _id: String,
-    pool: String,
+    _id: {
+        address: {
+            type: String,
+            required: true
+        },
+        pool: {
+            type: String,
+            required: true
+        }
+    },
     workers: Number,
     avgHashRate: String,
     coinsPerMin: String,
@@ -10,7 +18,11 @@ var PoolSchema = mongoose.Schema({
     unpaid: String,
     hashRate: String,
     estPay: String,
+    payAmount: String,
     time: Date,
+    updTime: {
+        type: Date
+    },
     lastSeen: Date,
     history: [{
         hashRate: String,
