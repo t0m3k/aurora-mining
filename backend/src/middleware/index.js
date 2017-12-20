@@ -34,7 +34,8 @@ exports.canWrite = function(req, res, next) {
 }; 
 
 exports.message = function(req, res, message = "There was an error") {
-        res.json({message: message});
+    console.log(message)
+    res.json({message: message});
 }
 
  module.exports = exports;

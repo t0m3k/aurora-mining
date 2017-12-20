@@ -8,11 +8,11 @@ const LOCALCONF             = require('./local_conf.js');
 
 
 // MODELS
-var User                    = require('./src/models/userModel');
+var User                    = require('./src/models/user');
 
 // ROUTES INIT
-var usersRoutes             = require("./src/routes/usersRoutes");
-var poolsRoutes             = require("./src/routes/poolsRoutes");
+var usersRoutes             = require("./src/routes/users");
+var poolsRoutes             = require("./src/routes/pools");
 
 
 var app = express();

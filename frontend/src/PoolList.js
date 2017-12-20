@@ -16,7 +16,7 @@ class PoolList extends Component {
       
     async loadPools(){
         let flypool = await Pools.getFlypool("t1brFCzBzEBt11pSXRB5KXAzWkrs5HYZryB");
-        this.setState({pools: [flypool]});
+        this.setState({pools: [flypool, flypool]});
     }
 
     render(){
@@ -28,7 +28,7 @@ class PoolList extends Component {
           ));
         return ( 
         <div className="ui container">
-            <div className="ui items">
+            <div className="ui grid stackable">
                     {pools}
             </div>
         </div>

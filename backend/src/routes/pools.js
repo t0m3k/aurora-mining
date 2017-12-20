@@ -1,6 +1,6 @@
 var express                 = require('express'),
-    User                    = require('../models/userModel'),
-    pools                   = require('../controllers/poolsControllers')
+    User                    = require('../models/user'),
+    pools                   = require('../controllers/pools')
     middleware              = require('../middleware');
 
 var router = express.Router({mergeParams: true});

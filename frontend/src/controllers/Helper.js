@@ -49,3 +49,8 @@ export function timeCounter(time = 0, minutes){
     let elapsed = now - old;    
     return (elapsed > (minutes * 60000));
 }
+
+export function dateToString(date){
+    let d = new Date(date);
+    return `${ d.toLocaleTimeString() } ${ d.toLocaleDateString() }`;
+}
