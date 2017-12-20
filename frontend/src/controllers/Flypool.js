@@ -60,6 +60,7 @@ async function fresh(address) {
             address: address,
             pool: "flypool"
           },
+          coin: "ZEC",
           workers: stats.activeWorkers,
           avgHashRate: stats.averageHashrate,
           coinsPerMin: stats.coinsPerMin,

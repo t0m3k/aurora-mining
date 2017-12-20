@@ -7,15 +7,7 @@ class Header extends Component {
                 <div className="header item">
                     Aurora Mining
                 </div>
-                <a className="item">
-                    About Us
-                </a>
-                <a className="item">
-                    Jobs
-                </a>
-                <a className="item">
-                    Locations
-                </a>
+                
             </div>
         )
     }

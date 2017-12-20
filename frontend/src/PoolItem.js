@@ -1,7 +1,7 @@
 import React from 'react';
 import {dateToString} from './controllers/Helper'
 
-const PoolItem = ({payAmount, avgHashRate, estPay, hashRate, usdPerMin, _id, updTime, time}) => {
+const PoolItem = ({payAmount, avgHashRate, estPay, hashRate, usdPerMin, _id, updTime, time, coin}) => {
     return  <div className="item eight wide computer sixteen wide tablet column">
                 <div className="content">
                     <div className="ui segments">
@@ -108,7 +108,7 @@ const PoolItem = ({payAmount, avgHashRate, estPay, hashRate, usdPerMin, _id, upd
                                     </div>
 
                                     <div className="label">
-                                        Pay amount
+                                        { coin }
                                     </div>
 
                                 </div>
