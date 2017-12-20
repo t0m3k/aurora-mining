@@ -11,10 +11,11 @@ router.route("/register")
 router.route("/login")
 .post(usersControllers.authUser);
 
+router.route("/u/:username")
+.post(usersControllers.addPool)
+
 router.route("/")
 .get(middleware.isLoggedIn, usersControllers.getUserData);
 
-router.route("/u/:username")
-.post(usersControllers.addPool)
 
 module.exports = router;

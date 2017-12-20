@@ -9,14 +9,22 @@ var UserSchema = mongoose.Schema({
         index: true
     },
     password: String,
+    address: {
+        type: String,
+        unique: true
+    },
     email: String,
+    currency: String,
     pools: [{
         _id: {
             type: String,
             required: true
         },
         name: String,
-        pool: String
+        pool: {
+            type: String,
+            required: true
+        }
     }],
     isAdmin: Boolean
 });

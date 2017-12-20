@@ -11,6 +11,7 @@ var PoolSchema = mongoose.Schema({
             required: true
         }
     },
+    coin: String,
     workers: Number,
     avgHashRate: String,
     coinsPerMin: String,
