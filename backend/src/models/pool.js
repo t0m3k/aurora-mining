@@ -22,7 +22,8 @@ var PoolSchema = mongoose.Schema({
     payAmount: String,
     time: Date,
     updTime: {
-        type: Date
+        type: Date,
+        default: new Date()
     },
     lastSeen: Date,
     history: [{
