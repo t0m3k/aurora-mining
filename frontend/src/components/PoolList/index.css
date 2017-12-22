@@ -5,3 +5,7 @@
 .ui.statistics, .ui.statistics:last-child {
     margin: 0 -1.5em -2em;
 }
+
+.content {
+    text-align: center;
+}

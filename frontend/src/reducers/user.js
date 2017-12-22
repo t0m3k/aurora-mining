@@ -5,6 +5,11 @@ const user = (state = {loggedIn: false}, action) => {
                 user: action.user,
                 loggedIn: true
             }
+            case 'LOGOUT':
+                return {
+                    user: {},
+                    loggedIn: false
+                }
         default:
             return state
     }

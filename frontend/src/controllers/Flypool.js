@@ -1,4 +1,4 @@
-import * as Helper from './Helper';
+import * as helper from './helper';
 
 async function apiCall(address, type) { // fetch data from flypool api
     return fetch(`https://api-zcash.flypool.org/miner/${ address }/${ type }`)
@@ -25,7 +25,7 @@ async function apiCall(address, type) { // fetch data from flypool api
    });
 }
 
-async function fresh(address) {
+export async function getFresh(address) {
   // create promises for getting all relevant data
   let statsPromise = apiCall(address, "currentStats");
   let configPromise = apiCall(address, "settings");
@@ -75,20 +75,17 @@ async function fresh(address) {
           history: history
       };     
 
-      Helper.saveLocal(stats);
+      helper.saveLocal(stats);
 
       return stats;
   });
 }
 
 export async function get(address) {
-  return Helper.getLocal('flypool', address)
+  return helper.getLocal('flypool', address)
   .then(stats => {
-    console.log(stats);
-    if(!stats || stats.length === 0 || Helper.timeCounter(stats.updTime, 5)) {
-      console.log("Getting fresh data");
-      
-      return fresh(address);
+    if(!stats || stats.length === 0) {      
+      return getFresh(address);
     }
     return stats;
   })
