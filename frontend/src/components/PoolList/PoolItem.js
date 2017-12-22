@@ -16,6 +16,86 @@ const PoolItem = ({
         currency,
         rate
     }) => {
+    
+
+    // array of stat segments to be displayed
+    const segments = [
+        {
+            header: "Hash rate",
+            values: [
+                {
+                    value: Math.round(hashRate) + "H/s",
+                    label: "Current"
+                },
+                {
+                    value: Math.round(avgHashRate) + "H/s",
+                    label: "Average"
+                }
+            ]
+        },
+        {
+            header: "Earnings " + currency,
+            values: [
+                {
+                    value: (usdPerMin * 60 * 24 * rate).toFixed(2),
+                    label: "day"
+                },
+                {
+                    value: (usdPerMin * 60 * 24 * rate * 30).toFixed(2),
+                    label: "month"
+                },
+                {
+                    value: (usdPerMin * 60 * 24 * rate * 365).toFixed(2),
+                    label: "year"
+                }
+            ]
+        },
+        {
+            header: "Earnings " + coin,
+            values: [
+                {
+                    value: (coinsPerMin * 60 * 24).toFixed(4),
+                    label: "day"
+                },
+                {
+                    value: (coinsPerMin * 60 * 24 * 30).toFixed(4),
+                    label: "month"
+                },
+                {
+                    value: (coinsPerMin * 60 * 24 * 365).toFixed(4),
+                    label: "year"
+                }
+            ]
+        },
+        {
+            header: "Next Pay",
+            values: [
+                {
+                    value: dateToString(estPay),
+                    label: "Est. pay time"
+                },
+                {
+                    value: payAmount,
+                    label: coin
+                }
+            ]
+        },
+        {
+            header: "Updates",
+            values: [
+                {
+                    value: dateToString(updTime),
+                    label: "Last refresh"
+                },
+                {
+                    value: dateToString(time),
+                    label: "Stats for"
+                }
+            ]
+        }
+    ].map(value => (<Segment key={value.header + _id.address} {..._id} {...value} />));
+
+
     return  <div className="item eight wide computer sixteen wide tablet column">
                 <div className="content">
                     <div className="ui segments">
@@ -27,192 +107,42 @@ const PoolItem = ({
                             </div>
 
                         </div>
-                        <div className="ui segment">
 
-                            <p className="ui header">Hash Rate</p>
+                        {segments}
 
-                            <div className="ui grid centered mini statistics">
-                                <div className="statistic">
-
-                                    <div className="value">
-                                        { Math.round(hashRate) } H/s
-                                    </div>
-
-                                    <div className="label">
-                                        Current
-                                    </div>
-
-                                </div>
-
-                                <div className="statistic">
-
-                                    <div className="value">
-                                        { Math.round(avgHashRate) } H/s
-                                    </div>
-
-                                    <div className="label">
-                                        Average
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="ui segment">
-
-                            <p className="ui header">Earnings</p>
-
-                            <p className="ui horizontal divider">{ currency }</p>
-
-                            <div className="ui grid centered mini statistics">
-                                <div className="statistic">
-
-                                    <div className="value">
-                                        { (usdPerMin * 60 * 24 * rate).toFixed(2) }
-                                    </div>
-
-                                    <div className="label">
-                                        day
-                                    </div>
-
-                                </div>
-
-                                <div className="statistic">
-
-                                    <div className="value">
-                                        { (usdPerMin * 60 * 24 * 30 * rate).toFixed(2) }
-                                    </div>
-
-                                    <div className="label">
-                                        month
-                                    </div>
-
-                                </div>
-
-                                <div className="statistic">
-
-                                    <div className="value">
-                                        { (usdPerMin * 60 * 24 * 365 * rate).toFixed(2) }
-                                    </div>
-
-                                    <div className="label">
-                                        year
-                                    </div>
-
-                                </div>
-
-                            </div>
-                                
-                            <p className="ui horizontal divider">{ coin }</p>
-                                
-                            <div className="ui grid centered mini statistics">
-                                
-                            
-                                <div className="statistic">
-
-                                    <div className="value">
-                                        { (coinsPerMin*60*24).toFixed(4) }
-                                    </div>
-
-                                    <div className="label">
-                                        day
-                                    </div>
-
-                                </div>
-
-                                <div className="statistic">
-
-                                    <div className="value">
-                                        { (coinsPerMin*60*24*30).toFixed(4) }
-                                    </div>
-
-                                    <div className="label">
-                                        month
-                                    </div>
-
-                                </div>
-
-                                <div className="statistic">
-
-                                    <div className="value">
-                                        { (coinsPerMin*60*24*365).toFixed(4) }
-                                    </div>
-
-                                    <div className="label">
-                                        year
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div className="ui segment">
-
-                            <p className="ui header">Next pay</p>
-
-                            <div className="ui grid centered mini statistics">
-                                <div className="statistic">
-
-                                    <div className="value">
-                                        { dateToString(estPay) }
-                                    </div>
-
-                                    <div className="label">
-                                        Est. pay time
-                                    </div>
-
-                                </div>
-
-                                <div className="statistic">
-
-                                    <div className="value">
-                                        { payAmount }
-                                    </div>
-
-                                    <div className="label">
-                                        { coin }
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="ui segment">
-
-                        <p className="ui header">Updates</p>
-                            <div className="ui grid centered mini statistics">
-
-                                <div className="statistic">
-
-                                    <div className="value">
-                                        { dateToString(updTime) }
-                                    </div>
-
-                                    <div className="label">
-                                        Last refresh
-                                    </div>
-
-                                </div>
-
-                                <div className="statistic">
-
-                                    <div className="value">
-                                        { dateToString(time) }
-                                    </div>
-
-                                    <div className="label">
-                                        Stats for
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
 
 };
+
+const Segment = ({header, values, address}) => {
+    const stats = values.map((value) => (<Stat key={value.label + value.value + address} {...value}/>))
+    return (
+        <div className="ui segment">
+            <p className="ui header">{header}</p>
+            <div className="ui grid centered mini statistics">
+                {stats}
+            </div>
+        </div>
+    )
+}
+
+const Stat = ({label, value}) => {
+
+    return(
+        <div className="statistic">
+
+            <div className="value">
+                { value }
+            </div>
+
+            <div className="label">
+                {label}
+            </div>
+
+        </div>
+    )
+}
 
 export default PoolItem;
