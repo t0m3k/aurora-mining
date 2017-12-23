@@ -28,6 +28,7 @@ export async function getFresh(address) {
     let history = [];
     let avgHashRate = 0;
     let lastSeen = 0;
+    let cpd = 0;
 
     if(Object.keys(stats.history).length > 0){
       history = stats.history[Object.keys(stats.history)[0]].map((item, i) => {
@@ -42,30 +43,27 @@ export async function getFresh(address) {
       lastSeen = history[history.length-1].time;
     }
 
-    let cpd = Object.keys(stats.workers).reduce(function(accumulator, currentValue) {
-      return accumulator + (1 / stats.workers[currentValue].luckDays);
-    }, 0) * 12.5;
-
-    console.log(cpd);
-  
-  
+    if(Object.keys(stats.workers).length > 0){
+      cpd = Object.keys(stats.workers).reduce(function(accumulator, currentValue) {
+        return accumulator + (1 / stats.workers[currentValue].luckDays);
+      }, 0) * 12.5;
+    }
 
     // calculating estemated next pay time
     let unpaid = stats.balance, // amount earned so fat
         time = new Date().getTime(),
         cpm = cpd / 24 / 60,
-        pay = 0.01; // threshold after whitch payment will be released
+        pay = 0.01, // threshold after whitch payment will be released
+        waitTime = 0,
+        estPayTime = 0;
 
     let toEarn = pay - unpaid; // amount tha need to be earned
 
-    console.log(time)
-
-    let waitTime = ((toEarn / cpm) * 60 * 1000); // miliseconds 
-
-    let estPayTime = Math.round(time + waitTime);
-
-    console.log(estPayTime);
-    
+    if(cpm > 0){
+      waitTime = ((toEarn / cpm) * 60 * 1000); // miliseconds 
+  
+      estPayTime = Math.round(time + waitTime);
+    }
     
     // return all data
     stats = {
