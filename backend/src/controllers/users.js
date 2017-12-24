@@ -38,7 +38,7 @@ exports.authUser = (req, res) => {
 };
 
 exports.getUserData = (req, res) => {
-    res.json(req.user);
+    res.json({user: req.user, loggedIn: req.isAuthenticated()});
 }
 
 exports.addPool = (req, res) => {

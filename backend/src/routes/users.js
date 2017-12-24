@@ -15,7 +15,7 @@ router.route("/u/:username")
 .post(usersControllers.addPool)
 
 router.route("/")
-.get(middleware.isLoggedIn, usersControllers.getUserData);
+.get(usersControllers.getUserData);
 
 
 module.exports = router;
