@@ -14,7 +14,8 @@ const PoolItem = ({
         coinsPerMin,
         name,
         currency,
-        rate
+        rate,
+        unpaid
     }) => {
     
 
@@ -77,6 +78,10 @@ const PoolItem = ({
                 {
                     value: payAmount,
                     label: coin
+                },
+                {
+                    value: parseFloat(unpaid).toFixed(4),
+                    label: "Unpaid"
                 }
             ]
         },
