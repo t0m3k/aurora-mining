@@ -3,16 +3,20 @@ var User                    = require('../models/user'),
     message                 = require('../middleware').message;
 
 exports.createUser = (req, res) => {
-    if(req.body.username && req.body.email && req.body.password){
+    if(req.body.username && req.body.password){
         User.register(new User({
             username: req.body.username,
-            email: req.body.email,
             isAdmin: false
             }),
             req.body.password,
             function(err, user){
                 if(err || !user) {
-                    return message(req, res, err.message);
+                    if(err.code === 11000 || err.name == "UserExistsError"){
+                        console.log(err);
+                        res.status(409).json({loggedIn: false, message: "User with this name already exists."})
+                    } else {
+                        res.status(500).json({loggedIn: false, message: "Uknown error"})
+                    }
                 } else {
                     passport.authenticate("local")(req, res, function(){
                         return res.json({username: user.username});
@@ -29,16 +33,26 @@ exports.createUser = (req, res) => {
 exports.authUser = (req, res) => {
     passport.authenticate('local', function(err, user, info) {
         if (err) { return message(req, res, err); }
-        if (!user) { return message(req, res, "Could not login"); }
+        if (!user) { return res.status(401).json({loggedIn: false, message: "Wrong username or password"}) }
         req.logIn(user, function(err) {
           if (err) { return message(req, res, err); }
-          return res.json({username: user.username});
+          return message(req, res, "Logged in!");
         });
-      })(req, res);    
+      })(req, res);
+};
+
+exports.logOut = (req, res) => {
+    req.logout();
+    message(req, res, "Logged out!");
 };
 
 exports.getUserData = (req, res) => {
-    res.json({user: req.user, loggedIn: req.isAuthenticated()});
+    if(req.user) {
+        User.findOne({username: req.user.username})
+        .then(user => res.json({user: user, loggedIn: req.isAuthenticated()}))
+    } else {
+        res.json({loggedIn: false})
+    }
 }
 
 exports.addPool = (req, res) => {
@@ -54,6 +68,5 @@ exports.addPool = (req, res) => {
         .catch((err) => message(req, res, err.message))
     })
 }
-
 
 module.exports = exports;
