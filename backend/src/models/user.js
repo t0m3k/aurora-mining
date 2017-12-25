@@ -3,28 +3,28 @@ var passportLocalMongoose = require('passport-local-mongoose');
 
 var UserSchema = mongoose.Schema({
     username: {
-        type: String,
-        required: true,
-        unique: true,
-        index: true
+        type: String
     },
-    password: String,
     address: {
-        type: String,
-        unique: true
+        type: String
     },
     email: String,
-    currency: String,
+    currency: {
+        type: String,
+        default: "GBP"
+    },
     pools: [{
         _id: {
-            type: String,
-            required: true
+            address: {
+                type: String,
+                required: true
+            },
+            pool: {
+                type: String,
+                required: true
+            }
         },
-        name: String,
-        pool: {
-            type: String,
-            required: true
-        }
+        name: String
     }],
     isAdmin: Boolean
 });

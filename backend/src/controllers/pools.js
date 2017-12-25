@@ -30,7 +30,6 @@ exports.addMinerStats = (req, res) => {
 
         Pool.findByIdAndUpdate(req.body._id, data, {new: true})
         .then(stats => {
-            console.log(stats);
             res.json(stats)
         })
         .catch(err => message(req, res, err))

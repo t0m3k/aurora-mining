@@ -11,6 +11,9 @@ router.route("/register")
 router.route("/login")
 .post(usersControllers.authUser);
 
+router.route("/logout")
+.get(usersControllers.logOut);
+
 router.route("/u/:username")
 .post(usersControllers.addPool)
 
