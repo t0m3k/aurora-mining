@@ -1,5 +1,5 @@
 export async function saveLocal(stats) { // save data to local api
-    fetch(`/pools/${stats.pool}/`, {
+    fetch(`/pools/${stats._id.pool}`, {
         method: 'post',
         headers: new Headers({
             'Content-Type': 'application/json',
@@ -52,5 +52,7 @@ export function timeCounter(time = 0, minutes){
 
 export function dateToString(date){
     let d = new Date(date);
-    return `${ d.toLocaleTimeString() } ${ d.toLocaleDateString() }`;
+    let hours = (d.getHours() < 10 ? '0' : '') + d.getHours();
+    let minutes = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+    return `${ hours + ':' + minutes } ${ d.getDate() + "/" + (d.getMonth() + 1) }`;
 }
