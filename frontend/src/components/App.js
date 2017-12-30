@@ -105,7 +105,7 @@ render() {
   const { loggedIn, classes, theme } = this.props
 
   const drawer = (
-      <div>
+      <div onClick={this.handleDrawerToggle}>
         <div className={classes.drawerHeader}>
         <IconButton
           style={{
