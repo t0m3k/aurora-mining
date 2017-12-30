@@ -5,19 +5,19 @@ var Pools = {};
 Pools.get = {};
 Pools.fresh = {};
 
-Pools.get.flypool = async function(address) {
+Pools.get.flypool = function(address) {
     return flypool.get(address);
 }
 
-Pools.get.poolGold = async function(address) {
+Pools.get.poolGold = function(address) {
     return poolGold.get(address);
 }
 
-Pools.fresh.flypool = async function(address) {
+Pools.fresh.flypool = function(address) {
     return flypool.getFresh(address);
 }
 
-Pools.fresh.poolGold = async function(address) {
+Pools.fresh.poolGold = function(address) {
     return poolGold.getFresh(address);
 }
 

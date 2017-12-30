@@ -4,33 +4,37 @@ const user = (state =
             username: null,
             currency: "USD"
         },
-        error: null,
-        loggedIn: false
+        error: false,
+        errorMsg: '',
+        loggedIn: false,
+        loading: false
     },
      action) => {
     switch(action.type) {
         case 'FETCH_USER_START':
             return {
                 ...state,
-                logging: true
+                loading: true
             }
         case 'FETCH_USER_DONE':
+        let user = action.user || {}
             return {
-                ...state,
-                user: action.user,
+                user: user,
                 loggedIn: action.loggedIn,
-                logging: false
+                loading: false
             }
         case 'LOGIN_USER_START':
             return {
                 ...state,
-                logging: true,
+                loading: true,
             }
         case 'LOGIN_USER_ERROR':
             return {
                 ...state,
-                logging: false,
-                error: action.error
+                loading: false,
+                loggedIn: false,
+                error: true,
+                errorMsg: action.error
             }
         case 'LOGOUT_USER':
             return {

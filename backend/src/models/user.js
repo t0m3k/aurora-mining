@@ -1,5 +1,5 @@
-var mongoose = require('mongoose');
-var passportLocalMongoose = require('passport-local-mongoose');
+var mongoose = require('mongoose')
+var passportLocalMongoose = require('passport-local-mongoose')
 
 var UserSchema = mongoose.Schema({
     username: {
@@ -8,27 +8,28 @@ var UserSchema = mongoose.Schema({
     address: {
         type: String
     },
-    email: String,
+    email: {
+        type: String,
+        required: true
+    },
     currency: {
         type: String,
         default: "GBP"
     },
     pools: [{
-        _id: {
-            address: {
-                type: String,
-                required: true
-            },
-            pool: {
-                type: String,
-                required: true
-            }
+        address: {
+            type: String,
+            required: true
+        },
+        pool: {
+            type: String,
+            required: true
         },
         name: String
     }],
     isAdmin: Boolean
 });
 
-UserSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(passportLocalMongoose)
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("User", UserSchema)

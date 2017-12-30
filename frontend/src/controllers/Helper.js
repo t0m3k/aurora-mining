@@ -1,4 +1,6 @@
-export async function saveLocal(stats) { // save data to local api
+import axios from 'axios'
+
+export function saveLocal(stats) { // save data to local api
     fetch(`/pools/${stats._id.pool}`, {
         method: 'post',
         headers: new Headers({
@@ -22,7 +24,7 @@ export async function saveLocal(stats) { // save data to local api
      })
 }
   
-export async function getLocal(pool, address) { // fetch data from local api
+export function getLocal(pool, address) { // fetch data from local api
     return fetch(`/pools/${pool}/${address}`)
     .then(resp => {
       if(!resp.ok) {
@@ -55,4 +57,29 @@ export function dateToString(date){
     let hours = (d.getHours() < 10 ? '0' : '') + d.getHours();
     let minutes = (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
     return `${ hours + ':' + minutes } ${ d.getDate() + "/" + (d.getMonth() + 1) }`;
+}
+
+
+export function getCurrency(currency){
+    const USD = {
+        name: 'USD', 
+        rate: 1
+    }
+
+    if(currency === 'USD'){
+        return USD
+    }
+
+    const result = axios("https://api.fixer.io/latest?base=USD")
+    .then(resp => {
+        if(resp.data.rates[currency]){
+            return  {
+                name: currency, 
+                rate: resp.data.rates[currency]
+            }
+        } else {
+            return USD
+        }
+    })
+    return result
 }

@@ -1,15 +1,13 @@
 var mongoose = require('mongoose');
 
 var PoolSchema = mongoose.Schema({
-    _id: {
-        address: {
-            type: String,
-            required: true
-        },
-        pool: {
-            type: String,
-            required: true
-        }
+    address: {
+        type: String,
+        required: true
+    },
+    pool: {
+        type: String,
+        required: true
     },
     coin: String,
     workers: Number,

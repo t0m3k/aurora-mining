@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as userController from '../controllers/user';
+import * as currencyActions from './currency'
 
 export function fetchUser() {
     return (dispatch) =>{
@@ -7,29 +7,21 @@ export function fetchUser() {
         axios.get('/users')
         .then(user => {
             dispatch({type: "FETCH_USER_DONE", ...user.data})
-        })
-    }
-}
-
-export function loginUser(username, password) {
-    return (dispatch) =>{
-        dispatch({type: "LOGIN_USER_START"})
-        userController.login(username, password)
-        .then(() => fetchUser()(dispatch))
-        .catch((err) => {
-            if(err.response){
-                if (err.response.status === 401) {
-                    dispatch({type: "LOGIN_USER_ERROR", error: "Wrong username or password"})
-                }
+            console.log(user.data)
+            if(user.data.user){
+                dispatch(currencyActions.getCurrency(user.data.user.currency))
             }
+
         })
     }
 }
 
-export function registerUser(username, password) {
+export function registerUser(username, password, email, currency) {
     return (dispatch) =>{
         dispatch({type: "LOGIN_USER_START"})
-        userController.register(username, password)
+        axios.post('/users/register', {
+            username, password, email, currency
+        })
         .then((resp) => {
             console.log(resp);
             fetchUser()(dispatch);
@@ -48,7 +40,7 @@ export function registerUser(username, password) {
 
 export function logoutUser() {
     return (dispatch) =>{
-        userController.logout()
+        axios.get('/users/logout')
         .then(resp => {
             dispatch({type: "LOGOUT_USER"})
         })

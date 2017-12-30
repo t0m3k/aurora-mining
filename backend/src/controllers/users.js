@@ -1,4 +1,5 @@
 var User                    = require('../models/user'),
+    Pool                    = require('../models/pool'),
     passport                = require('passport'),
     message                 = require('../middleware').message;
 
@@ -6,6 +7,8 @@ exports.createUser = (req, res) => {
     if(req.body.username && req.body.password){
         User.register(new User({
             username: req.body.username,
+            currency: req.body.currency,
+            email: req.body.email,
             isAdmin: false
             }),
             req.body.password,
@@ -49,7 +52,28 @@ exports.logOut = (req, res) => {
 exports.getUserData = (req, res) => {
     if(req.user) {
         User.findOne({username: req.user.username})
-        .then(user => res.json({user: user, loggedIn: req.isAuthenticated()}))
+        .then(user => {
+            let poolsPromise = []
+
+            
+            poolsPromise = user.pools.map((pool) => {
+                return Pool.findOne({
+                    _id: {
+                        address: pool._id.address, 
+                        pool: pool._id.pool
+                    }
+                })
+            })
+
+            Promise.all(poolsPromise)
+            .then((pools) => {
+                const updatedPools = user.pools.map(pool =>{
+                    return pools.find(newPool => (newPool._id.address == pool._id.address && newPool._id.pool == pool._id.pool))
+                })
+                
+                res.json({user: {...user._doc, pools:updatedPools}, loggedIn: req.isAuthenticated()})
+            })
+        })
     } else {
         res.json({loggedIn: false})
     }
@@ -62,10 +86,22 @@ exports.addPool = (req, res) => {
 
     User.findOne({username: req.user.username})
     .then(user => {
-        user.pools.push(req.body);
-        User.findByIdAndUpdate(user._id, user, {new: true})
+        console.log(req.body)
+        user.pools.push({
+                _id: {
+                    address:req.body.address, 
+                    pool: req.body.pool
+                }, 
+                name: req.body.name
+            })
+        console.log(user.pools)
+        user.save()
         .then((updated) => res.json(updated))
         .catch((err) => message(req, res, err.message))
+
+        // User.findByIdAndUpdate(user._id, user, {new: true})
+        // .then((updated) => res.json(updated))
+        // .catch((err) => message(req, res, err.message))
     })
 }
 

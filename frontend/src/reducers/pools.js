@@ -1,12 +1,12 @@
 const pool = (state = 
-    {
+    [{
         _id: {
             pool: null,
             address: null
         },
         name: null,
         index: 0
-    },
+    }],
     action) => {
     switch(action.type) {
         case 'LOGIN':
@@ -14,11 +14,11 @@ const pool = (state =
                 user: action.user,
                 loggedIn: true
             }
-            case 'LOGOUT':
-                return {
-                    user: {},
-                    loggedIn: false
-                }
+        case 'LOGOUT':
+            return {
+                user: {},
+                loggedIn: false
+            }
         default:
             return state
     }

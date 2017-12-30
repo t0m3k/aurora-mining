@@ -1,13 +1,11 @@
 var Pool                   = require('../models/pool'),
-    message                 = require('../middleware').message;
+    message                = require('../middleware').message;
 
 
 exports.getMinerStats = (req, res) => {
-    Pool.find({
-        _id: {
+    Pool.findOne({
             address: req.params.address, 
             pool: req.params.pool
-        }
     })
     .then(stats => {
         res.json(stats);
@@ -16,26 +14,11 @@ exports.getMinerStats = (req, res) => {
 }
 
 exports.addMinerStats = (req, res) => {
-    Pool.findById(req.body._id)
-    .then(pool => {
-        
-        if(!pool) {
-            Pool.create(req.body)
-            .then(newPool => res.json(newPool))
-            .catch(err => message(req, res, err.message));
-        }
-        
-        let data = {...req.body, _id: null};
-        delete data._id;
-
-        Pool.findByIdAndUpdate(req.body._id, data, {new: true})
-        .then(stats => {
-            res.json(stats)
-        })
-        .catch(err => message(req, res, err))
-
+    Pool.update({address: req.body.address, pool: req.body.pool}, data, {upsert: true, setDefaultsOnInsert: true})
+    .then(stats => {
+        res.json(stats)
     })
-    .catch(err => message(req, res, err.message));
+    .catch(err => message(req, res, err.message))
 }
 
 module.exports = exports;

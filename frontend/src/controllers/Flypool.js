@@ -1,31 +1,31 @@
 import * as helper from './helper';
 
-async function apiCall(address, type) { // fetch data from flypool api
-    return fetch(`https://api-zcash.flypool.org/miner/${ address }/${ type }`)
-    .then(resp => {
-      if(!resp.ok) {
-        if(resp.status >=400 && resp.status < 500) {
-          return resp.json().then(data => {
-            let err = {errorMessage: data.message};
-            throw err;
-          })
-        } else {
-          let err = {errorMessage: 'Please try again later, server is not responding'};
+function apiCall(address, type) { // fetch data from flypool api
+  return fetch(`https://api-zcash.flypool.org/miner/${ address }/${ type }`)
+  .then(resp => {
+    if(!resp.ok) {
+      if(resp.status >=400 && resp.status < 500) {
+        return resp.json().then(data => {
+          let err = {errorMessage: data.message};
           throw err;
-        }
+        })
+      } else {
+        let err = {errorMessage: 'Please try again later, server is not responding'};
+        throw err;
       }
-      return resp.json()
-      .then(input => {
-        if(input.status !== "OK") {
-            let err = {errorMessage: "Please try again later, server did not return data"};
-            throw err;
-        }
-        return input.data;
-      });
-   });
+    }
+    return resp.json()
+    .then(input => {
+      if(input.status !== "OK") {
+          let err = {errorMessage: "Please try again later, server did not return data"};
+          throw err;
+      }
+      return input.data;
+    });
+  });
 }
 
-export async function getFresh(address) {
+export function getFresh(address) {
   // create promises for getting all relevant data
   let statsPromise = apiCall(address, "currentStats");
   let configPromise = apiCall(address, "settings");
@@ -81,7 +81,7 @@ export async function getFresh(address) {
   });
 }
 
-export async function get(address) {
+export function get(address) {
   return helper.getLocal('flypool', address)
   .then(stats => {
     if(!stats || stats.length === 0) {      
