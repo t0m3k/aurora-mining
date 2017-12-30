@@ -13,7 +13,7 @@ export const renderTextField = ({
     }) => (
     <TextField
         label={label}
-        helperText={touched && error}
+        helperText={error}
         error={(!!touched && !!error)}
         {...input}
         {...custom}
