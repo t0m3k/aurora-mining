@@ -1,5 +1,12 @@
 import React from 'react';
 import {dateToString} from '../../controllers/helper'
+import Grid from 'material-ui/Grid/Grid';
+import Paper from 'material-ui/Paper/Paper';
+import Typography from 'material-ui/Typography/Typography';
+import List from 'material-ui/List/List';
+import ListItemText from 'material-ui/List/ListItemText';
+import ListItem from 'material-ui/List/ListItem';
+import Divider from 'material-ui/Divider/Divider';
 
 const PoolItem = ({
         payAmount,
@@ -8,6 +15,8 @@ const PoolItem = ({
         hashRate,
         usdPerMin,
         _id,
+        address,
+        pool,
         updTime,
         time, 
         coin,
@@ -98,59 +107,53 @@ const PoolItem = ({
                 }
             ]
         }
-    ].map(value => (<Segment key={value.header + _id.address} {..._id} {...value} />));
+    ].map(value => (<Segment key={value.header + _id} address={address} pool={pool} {...value} />));
 
 
-    return  <div className="item eight wide computer sixteen wide tablet column">
-                <div className="content">
-                    <div className="ui segments">
-
-                        <div className="ui segment">
-                            
-                            <h2 className="ui medium header">{ name }</h2>
-                            <div className="ui tiny header">{ _id.address }
-                            <div className="meta">{ _id.pool }</div>
-                            </div>
-
-                        </div>
-
-                        {segments}
-
+    return  <Grid 
+                item
+                lg={6}
+                md={6}
+                sm={12}
+                xs={12}
+            >
+                <Paper>
+                <Typography type="headline" component="h2">
+                    { name }
+                </Typography>
+                    <div className="ui tiny header">{ address }
+                    <div className="meta">{ pool }</div>
                     </div>
-                </div>
-            </div>
+
+                {segments}
+                </Paper>
+
+            </Grid>
 
 };
 
 const Segment = ({header, values, address}) => {
     const stats = values.map((value) => (<Stat key={value.label + value.value + address} {...value}/>))
     return (
-        <div className="ui segment">
-        
-            <p className="ui header">{header}</p>
+        <Grid item>
+            <Divider />
+            <Typography type="subheading" component="h3">
+                {header}
+            </Typography>
 
-            <div className="ui grid centered mini statistics">
-                {stats}
-            </div>
-            
-        </div>
+            <List>
+                {stats}            
+            </List>
+        </Grid>
     )
 }
 
 const Stat = ({label, value}) => {
 
     return(
-        <div className="statistic">
-
-            <div className="value">
-                { value }
-            </div>
-
-            <div className="label">
-                {label}
-            </div>
-
-        </div>
+        <ListItem>
+            <ListItemText primary={value} secondary={label} />
+        </ListItem>
     )
 }
 
