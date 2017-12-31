@@ -13,7 +13,7 @@ export const renderTextField = ({
     }) => (
     <TextField
         label={label}
-        helperText={error}
+        helperText={error ? error : ' '}
         error={(!!touched && !!error)}
         {...input}
         {...custom}
@@ -40,9 +40,7 @@ export const renderSelectField = ({
                 onChange={(value) => input.onChange(value)}
                 children={children}
             />
-            {error &&
-                <FormHelperText>{error}</FormHelperText>
-            }
+            <FormHelperText>{error ? error : ' '}</FormHelperText>
 
         </FormControl>
     )
