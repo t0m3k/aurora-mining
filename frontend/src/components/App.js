@@ -59,7 +59,6 @@ render() {
           color="primary"
           aria-label="close drawer"
           onClick={this.handleDrawerToggle}
-          className={classes.navIconHide}
         >
           <ArrowLeft />
         </IconButton>
@@ -117,7 +116,6 @@ render() {
               color="contrast"
               aria-label="open drawer"
               onClick={this.handleDrawerToggle}
-              className={classes.navIconHide}
             >
               <MenuIcon />
             </IconButton>
@@ -127,34 +125,20 @@ render() {
           </Toolbar>
         </AppBar>
 
-        <Hidden mdUp>
-          <Drawer
-            type="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={this.state.mobileOpen}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            onClose={this.handleDrawerToggle}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-
-        <Hidden mdDown implementation="css">
-          <Drawer
-            type="permanent"
-            open
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
+        <Drawer
+          type="temporary"
+          anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+          open={this.state.mobileOpen}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+          onClose={this.handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+        >
+          {drawer}
+        </Drawer>
 
         <main className={classes.content}>
 

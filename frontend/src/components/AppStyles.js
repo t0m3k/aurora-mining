@@ -8,10 +8,7 @@ const styles = (drawerWidth) => (theme => ({
     },
     appBar: {
         position: 'absolute',
-        marginLeft: drawerWidth,
-        [theme.breakpoints.up('md')]: {
-          width: `calc(100% - ${drawerWidth}px)`,
-        },
+        marginLeft: drawerWidth
     },
     appFrame: {
       position: 'relative',
@@ -20,11 +17,7 @@ const styles = (drawerWidth) => (theme => ({
       height: '100%',
     },
     drawerPaper: {
-        width: 250,
-        [theme.breakpoints.up('md')]: {
-          width: drawerWidth,
-          position: 'relative'
-        },
+        width: 250
     },
     drawerHeader: {
       ...theme.mixins.toolbar,
@@ -33,20 +26,11 @@ const styles = (drawerWidth) => (theme => ({
       justifyContent: 'flex-end',
       padding: '0 24px'
     },
-    navIconHide: {
-      [theme.breakpoints.up('md')]: {
-        display: 'none',
-      },
-    },
     content: {
       width: '100%',
       padding: theme.spacing.unit * 3,
       height: 'calc(100% - 56px)',
-      marginTop: 56,
-      [theme.breakpoints.up('sm')]: {
-        height: 'calc(100% - 64px)',
-        marginTop: 64,
-      }
+      marginTop: 56
     },
     progress: {
       margin: "20% auto",
