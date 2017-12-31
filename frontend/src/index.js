@@ -1,20 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 import Router from 'react-router-dom/BrowserRouter'
-import App from './components/App';
+import App from './components/App'
 
 // REDUX
-import {Provider} from 'react-redux';
-import {createStore, applyMiddleware} from 'redux';
-import {createLogger as logger} from 'redux-logger';
-import thunk from 'redux-thunk';
-import reducers from './reducers';
+import {Provider} from 'react-redux'
+import {createStore, applyMiddleware} from 'redux'
+import {createLogger as logger} from 'redux-logger'
+import thunk from 'redux-thunk'
+import reducers from './reducers'
 
 // MATERIAL UI
-import {indigo, red, orange} from 'material-ui/colors';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import {indigo, red, orange} from 'material-ui/colors'
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
 
-import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker'
 
 const theme = createMuiTheme({
     palette: {
@@ -24,12 +24,12 @@ const theme = createMuiTheme({
     status: {
         danger: orange[500],
     }
-});
+})
   
 
-const middleware = applyMiddleware(thunk, logger());
+const middleware = applyMiddleware(thunk, logger())
 
-const store = createStore(reducers, middleware);
+const store = createStore(reducers, middleware)
 
 
 ReactDOM.render(
@@ -40,5 +40,5 @@ ReactDOM.render(
         </MuiThemeProvider>
     </Router>
 </Provider>,
-document.getElementById('root'));
-registerServiceWorker();
+document.getElementById('root'))
+registerServiceWorker()

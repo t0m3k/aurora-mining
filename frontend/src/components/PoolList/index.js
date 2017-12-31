@@ -4,14 +4,13 @@ import { connect } from 'react-redux'
 import AddIcon from 'material-ui-icons/Add'
 import Button from 'material-ui/Button'
 import Dialog, {
-  DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
 import AddPoolForm from '../Forms/AddPoolForm'
 import axios from 'axios'
 import * as userActions from '../../actions/user'
+import Grid from 'material-ui/Grid/Grid';
 
 
 class PoolList extends Component {
@@ -63,10 +62,15 @@ class PoolList extends Component {
         pools.sort((a, b) => a.props.index - b.props.index)
 
         return (
-        <div className="ui container">
-            <div className="ui grid stackable">
-                    {pools}
-            </div>
+        <div>
+            <Grid 
+                container
+                justify='center'
+                direction='row'
+                spacing={24}
+            >
+                {pools}
+            </Grid>
             <Button onClick={this.handleClickOpen} fab color="primary" aria-label="add" style={{position:"fixed", right:'1em', bottom:'1em'}}>
                 <AddIcon />
             </Button>

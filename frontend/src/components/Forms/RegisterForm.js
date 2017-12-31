@@ -10,12 +10,7 @@ import * as formHelpers from './helpers'
 const styles = theme => ({
   container: {
       heigth: "100%",
-      marginTop: "20%"
-  },
-  textField: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
-    width: '220px',
+      marginTop: "10%"
   }
 })
 
@@ -55,7 +50,7 @@ let RegisterForm = (props) => {
         justify='center'
         >
             <form onSubmit={handleSubmit} noValidate autoComplete="off">
-                <Grid direction='column' spacing={24} container>
+                <Grid direction='column' spacing={8} container>
                     <Grid item>
                         <Field
                             name="username"
@@ -75,6 +70,7 @@ let RegisterForm = (props) => {
                     <Grid item>
                         <Field
                             name="password"
+                            type="password"
                             component={formHelpers.renderTextField}
                             label="Password"
                         />
