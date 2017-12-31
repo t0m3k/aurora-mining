@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route, Link, withRouter } from 'react-router-dom/'
+import { Route, Link, withRouter, Redirect } from 'react-router-dom/'
 import Switch from 'react-router-dom/Switch'
 import PoolList from './PoolList/'
 import {connect} from 'react-redux/'
@@ -16,67 +16,13 @@ import AccountBox from 'material-ui-icons/AccountBox'
 import ArrowLeft from 'material-ui-icons/ArrowBack'
 import HomeIcon from 'material-ui-icons/Home'
 
+import AppStyles from './AppStyles.js'
+
 const title = "Aurora Mining Stats"
 
 const drawerWidth = 240
 
-
-const styles = theme => ({
-    menuButton: {
-        marginLeft: -12,
-        marginRight: 20,
-    },
-    flex: {
-        flex: 1
-    },
-    appBar: {
-        position: 'absolute',
-        marginLeft: drawerWidth,
-        [theme.breakpoints.up('md')]: {
-          width: `calc(100% - ${drawerWidth}px)`,
-        },
-    },
-    appFrame: {
-      position: 'relative',
-      display: 'flex',
-      width: '100%',
-      height: '100%',
-    },
-    drawerPaper: {
-        width: 250,
-        [theme.breakpoints.up('md')]: {
-          width: drawerWidth,
-          position: 'relative'
-        },
-    },
-    drawerHeader: {
-      ...theme.mixins.toolbar,
-      alignItems: 'center',
-      display: 'flex',
-      justifyContent: 'flex-end',
-      padding: '0 24px'
-    },
-    navIconHide: {
-      [theme.breakpoints.up('md')]: {
-        display: 'none',
-      },
-    },
-    content: {
-      width: '100%',
-      padding: theme.spacing.unit * 3,
-      height: 'calc(100% - 56px)',
-      marginTop: 56,
-      [theme.breakpoints.up('sm')]: {
-        height: 'calc(100% - 64px)',
-        marginTop: 64,
-      }
-    },
-    progress: {
-      margin: "20% auto",
-      textAlign: "center"
-    }
-})
-
+const styles = AppStyles(drawerWidth)
 
 class App extends Component {
   constructor(props){
@@ -128,7 +74,10 @@ render() {
             </ListItemIcon>
             <ListItemText primary="Home" />
           </ListItem>
-
+          
+          {/** 
+          Display login and register buttons if no user is logged in
+          */}
           {!loggedIn &&
           <div>
           <ListItem button component={ Link } to='/login'>
@@ -137,7 +86,7 @@ render() {
             </ListItemIcon>
             <ListItemText primary="Login" />
           </ListItem>
-          <ListItem button component={ Link } to='/Register'>
+          <ListItem button component={ Link } to='/register'>
             <ListItemIcon>
               <AccountBox />
             </ListItemIcon>
@@ -210,9 +159,9 @@ render() {
         <main className={classes.content}>
 
           <Switch>
-            <Route exact path='/' component={ PoolList } />
-            <Route path='/login' component={ Login } />
-            <Route path='/register' component={ Register } />
+            <Route exact path='/' render={() => loggedIn ? <PoolList /> : <Redirect to='/login' /> } />
+            <Route path='/login' render={() => loggedIn ? <Redirect to='/' /> : <Login /> } />
+            <Route path='/register' render={() => loggedIn ? <Redirect to='/' /> : <Register /> } />
           </Switch>
 
         </main>
