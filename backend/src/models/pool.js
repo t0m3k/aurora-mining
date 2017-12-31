@@ -10,20 +10,50 @@ var PoolSchema = mongoose.Schema({
         required: true
     },
     coin: String,
-    workers: Number,
-    avgHashRate: String,
-    coinsPerMin: String,
-    usdPerMin: String,
-    unpaid: String,
-    hashRate: String,
-    estPay: String,
-    payAmount: String,
-    time: Date,
+    workers: {
+        type: Number,
+        default: 0
+    },
+    avgHashRate: {
+        type: String,
+        default: '0'
+    },
+    coinsPerMin: {
+        type: String,
+        default: '0'
+    },
+    usdPerMin: {
+        type: String,
+        default: '0'
+    },
+    unpaid: {
+        type: String,
+        default: '0'
+    },
+    hashRate: {
+        type: String,
+        default: '0'
+    },
+    estPay: {
+        type: String,
+        default: '0'
+    },
+    payAmount: {
+        type: String,
+        default: '0'
+    },
+    time: {
+        type: Date,
+        default: new Date(0)
+    },
     updTime: {
         type: Date,
         default: new Date()
     },
-    lastSeen: Date,
+    lastSeen: {
+        type: Date,
+        default: new Date(0)
+    },
     history: [{
         hashRate: String,
         avgHashRate: String,
