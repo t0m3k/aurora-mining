@@ -1,22 +1,58 @@
-import React, {Component} from 'react';
-import PoolItem from './PoolItem';
-import { connect } from 'react-redux';
+import React, {Component} from 'react'
+import PoolItem from './PoolItem'
+import { connect } from 'react-redux'
 import AddIcon from 'material-ui-icons/Add'
 import Button from 'material-ui/Button'
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from 'material-ui/Dialog';
+import AddPoolForm from '../Forms/AddPoolForm'
+import axios from 'axios'
+import * as userActions from '../../actions/user'
+
 
 class PoolList extends Component {
-    componentWillMount(){
-        
+
+    handleClickOpen = () => {
+        const dispatch = this.props.dispatch
+        dispatch({ type: "POOL_FORM_OPEN" });
+    }
+
+    handleClose = () => {
+        const dispatch = this.props.dispatch
+        console.log(dispatch)     
+        dispatch({ type: "POOL_FORM_CLOSE" });
+    }
+
+    addPoolSubmit = (values) => {
+        const username = this.props.user.username
+        const url = `/users/u/${username}`
+        const dispatch = this.props.dispatch
+
+        axios.post(url, {
+            address: values.address,
+            pool: values.pool,
+            name: values.name
+        })
+        .then(resp =>{
+            console.log(resp)
+            dispatch(userActions.fetchUser());
+        })
+
     }
 
     render(){
         let pools = []
 
+        const { addPoolForm } = this.props
 
         if(this.props.user.pools){
             pools = this.props.user.pools.map((pool) => (
                 <PoolItem
-                    key = {pool._id.address}
+                    key = {pool._id}
                     {...pool}
                     currency = {this.props.currency.name}
                     rate = {this.props.currency.rate}
@@ -31,9 +67,21 @@ class PoolList extends Component {
             <div className="ui grid stackable">
                     {pools}
             </div>
-            <Button fab color="primary" aria-label="add" style={{position:"fixed", right:'1em', bottom:'1em'}}>
+            <Button onClick={this.handleClickOpen} fab color="primary" aria-label="add" style={{position:"fixed", right:'1em', bottom:'1em'}}>
                 <AddIcon />
             </Button>
+
+            <Dialog
+                maxWidth="sm"
+                open={addPoolForm}
+                onClose={this.handleClose}
+                aria-labelledby="form-dialog-title"
+            >
+                <DialogTitle id="form-dialog-title">Add pool</DialogTitle>
+                <DialogContent>
+                <AddPoolForm onSubmit={this.addPoolSubmit} handleClose={this.handleClose} />
+                </DialogContent>
+            </Dialog>
         </div>
         )
     }
@@ -42,6 +90,7 @@ class PoolList extends Component {
 const mapStateToProps = state => {
     return {
         user: state.user.user,
+        addPoolForm: state.user.addPoolForm,
         currency: state.currency
     }
 }
