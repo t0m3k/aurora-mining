@@ -58,20 +58,22 @@ exports.getUserData = (req, res) => {
             
             poolsPromise = user.pools.map((pool) => {
                 return Pool.findOne({
-                    _id: {
-                        address: pool._id.address, 
-                        pool: pool._id.pool
-                    }
+                        address: pool.address, 
+                        pool: pool.pool
                 })
             })
 
             Promise.all(poolsPromise)
             .then((pools) => {
-                const updatedPools = user.pools.map(pool =>{
-                    return pools.find(newPool => (newPool._id.address == pool._id.address && newPool._id.pool == pool._id.pool))
-                })
+                let resultPools = user.pools
+
+                if ((pools.length > 0) && (pools[0] !== null)){
+                    resultPools = user.pools.map(pool =>{
+                    return pools.find(newPool => (newPool.address == pool.address && newPool.pool == pool.pool))
+                    })
+                }
                 
-                res.json({user: {...user._doc, pools:updatedPools}, loggedIn: req.isAuthenticated()})
+                res.json({user: {...user._doc, pools:resultPools}, loggedIn: req.isAuthenticated()})
             })
         })
     } else {
@@ -88,10 +90,8 @@ exports.addPool = (req, res) => {
     .then(user => {
         console.log(req.body)
         user.pools.push({
-                _id: {
-                    address:req.body.address, 
-                    pool: req.body.pool
-                }, 
+                address:req.body.address, 
+                pool: req.body.pool,
                 name: req.body.name
             })
         console.log(user.pools)
