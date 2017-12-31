@@ -65,15 +65,14 @@ exports.getUserData = (req, res) => {
 
             Promise.all(poolsPromise)
             .then((pools) => {
-                let resultPools = user.pools
 
-                if ((pools.length > 0) && (pools[0] !== null)){
-                    resultPools = user.pools.map(pool =>{
-                    return pools.find(newPool => (newPool.address == pool.address && newPool.pool == pool.pool))
-                    })
-                }
+                // user.pools.forEach(pool =>{
+                //         if(pools.find(newPool => (newPool.address == pool.address && newPool.pool == pool.pool))){
+                //             // TODO - UPDATE POOLS FROM pools VARIABLE
+                //         }
+                // })
                 
-                res.json({user: {...user._doc, pools:resultPools}, loggedIn: req.isAuthenticated()})
+                res.json({user: {...user._doc, pools:user.pools}, loggedIn: req.isAuthenticated()})
             })
         })
     } else {
