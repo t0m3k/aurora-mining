@@ -7,7 +7,8 @@ const user = (state =
         error: false,
         errorMsg: '',
         loggedIn: false,
-        loading: false
+        loading: false,
+        addPoolForm: false
     },
      action) => {
     switch(action.type) {
@@ -27,6 +28,16 @@ const user = (state =
             return {
                 ...state,
                 loading: true,
+            }
+        case 'POOL_FORM_OPEN':
+            return {
+                ...state,
+                addPoolForm: true,
+            }
+        case 'POOL_FORM_CLOSE':
+            return {
+                ...state,
+                addPoolForm: false,
             }
         case 'LOGIN_USER_ERROR':
             return {
