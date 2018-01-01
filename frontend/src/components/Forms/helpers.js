@@ -28,7 +28,6 @@ export const renderSelectField = ({
     children,
     ...custom
     }) => {
-    console.log(input)
     return (
         <FormControl>
         <InputLabel htmlFor={name}>{label}</InputLabel>

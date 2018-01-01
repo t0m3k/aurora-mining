@@ -66,13 +66,11 @@ let LoginForm = (props) => {
                         />
                     </Grid>
 
-                    {error &&
                     <Grid item>
                         <Typography color='error'>
-                            {error}
+                            {error ? error : ' '}
                         </Typography>
                     </Grid>
-                    }
 
                     <Grid item>
                         <Button

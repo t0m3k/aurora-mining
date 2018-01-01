@@ -56,15 +56,13 @@ export function getFresh(address) {
       
       // return all data
       stats = {
-          _id: {
-            address: address,
-            pool: "flypool"
-          },
+          address: address,
+          pool: "flypool",
           coin: "ZEC",
           workers: stats.activeWorkers,
           avgHashRate: stats.averageHashrate,
-          coinsPerMin: stats.coinsPerMin,
-          usdPerMin: stats.usdPerMin,
+          coinsPerDay: stats.coinsPerMin * 60 * 24,
+          usdPerDay: stats.usdPerMin * 60 * 24,
           unpaid: unpaid,
           hashRate: stats.currentHashrate,
           estPay: new Date(estPayTime * 1000),

@@ -18,11 +18,11 @@ var PoolSchema = mongoose.Schema({
         type: String,
         default: '0'
     },
-    coinsPerMin: {
+    coinsPerDay: {
         type: String,
         default: '0'
     },
-    usdPerMin: {
+    usdPerDay: {
         type: String,
         default: '0'
     },
@@ -60,5 +60,10 @@ var PoolSchema = mongoose.Schema({
         time: Date
     }]
 });
+
+PoolSchema.statics.findOneOrCreate = function(item, cb){
+    return (item ? this.findOne(item, cb):this.findOne({}, cb))
+    .then(page=>page ? page : this.create(item, cb))
+  }
 
 module.exports = mongoose.model("Pool", PoolSchema);

@@ -5,6 +5,8 @@ import Button from 'material-ui/Button/Button'
 import { MenuItem } from 'material-ui/Menu'
 import { Field, reduxForm } from 'redux-form'
 import * as formHelpers from './helpers'
+import Typography from 'material-ui/Typography/Typography';
+
 
 const styles = theme => ({
   container: {
@@ -32,7 +34,7 @@ const validate = values => {
 
 let AddPoolForm = (props) => {
 
-    const { handleSubmit, pristine, submitting, classes, handleClose } = props
+    const { handleSubmit, pristine, submitting, classes, handleClose, error } = props
     return (
             <form onSubmit={handleSubmit} noValidate autoComplete="off">
                 <Grid direction='column' spacing={8} container>
@@ -62,6 +64,12 @@ let AddPoolForm = (props) => {
                             <MenuItem value="flypool">Flypool</MenuItem>
                             <MenuItem value="nicehash">NiceHash</MenuItem>
                         </Field>
+                    </Grid>
+
+                    <Grid item>
+                        <Typography color='error'>
+                            {error ? error : ' '}
+                        </Typography>
                     </Grid>
 
                     <Grid item>

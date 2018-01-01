@@ -6,14 +6,27 @@ import Button from 'material-ui/Button'
 import Dialog, {
   DialogContent,
   DialogTitle,
-} from 'material-ui/Dialog';
+} from 'material-ui/Dialog'
 import AddPoolForm from '../Forms/AddPoolForm'
 import axios from 'axios'
 import * as userActions from '../../actions/user'
-import Grid from 'material-ui/Grid/Grid';
+import Grid from 'material-ui/Grid/Grid'
+import { SubmissionError } from 'redux-form'
+import poolsControler from '../../controllers/pools'
+import {timeCounter} from '../../controllers/helper'
 
 
 class PoolList extends Component {
+    componentWillMount() {
+        this.updatePools()
+    }
+
+    updatePools = () => {
+        const update = this.props.user.pools.filter(pool => {
+            return timeCounter(pool.time, 5)
+        })
+        const promises = update.map(pool => poolsControler.getFresh[pool.pool](pool.address))
+    }
 
     handleClickOpen = () => {
         const dispatch = this.props.dispatch
@@ -22,7 +35,6 @@ class PoolList extends Component {
 
     handleClose = () => {
         const dispatch = this.props.dispatch
-        console.log(dispatch)     
         dispatch({ type: "POOL_FORM_CLOSE" });
     }
 
@@ -31,14 +43,16 @@ class PoolList extends Component {
         const url = `/users/u/${username}`
         const dispatch = this.props.dispatch
 
-        axios.post(url, {
+        return axios.post(url, {
             address: values.address,
             pool: values.pool,
             name: values.name
         })
         .then(resp =>{
-            console.log(resp)
             dispatch(userActions.fetchUser());
+        })
+        .catch(err => {
+            throw new SubmissionError({_error: err.response.data.message})
         })
 
     }

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export function saveLocal(stats) { // save data to local api
-    fetch(`/pools/${stats._id.pool}`, {
+    fetch(`/pools/${stats.pool}`, {
         method: 'post',
         headers: new Headers({
             'Content-Type': 'application/json',

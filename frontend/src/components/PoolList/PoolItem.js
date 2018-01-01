@@ -13,21 +13,19 @@ const PoolItem = ({
         avgHashRate,
         estPay,
         hashRate,
-        usdPerMin,
+        usdPerDay,
         _id,
         address,
         pool,
         updTime,
         time, 
         coin,
-        coinsPerMin,
+        coinsPerDay,
         name,
         currency,
         rate,
         unpaid
     }) => {
-    
-
     // array of stat segments to be displayed
     const segments = [
         {
@@ -47,15 +45,15 @@ const PoolItem = ({
             header: "Earnings - " + currency,
             values: [
                 {
-                    value: (usdPerMin * 60 * 24 * rate).toFixed(2),
+                    value: (usdPerDay * rate).toFixed(2),
                     label: "day"
                 },
                 {
-                    value: (usdPerMin * 60 * 24 * rate * 30).toFixed(2),
+                    value: (usdPerDay * rate * 30).toFixed(2),
                     label: "month"
                 },
                 {
-                    value: (usdPerMin * 60 * 24 * rate * 365).toFixed(2),
+                    value: (usdPerDay * rate * 365).toFixed(2),
                     label: "year"
                 }
             ]
@@ -64,15 +62,15 @@ const PoolItem = ({
             header: "Earnings - " + coin,
             values: [
                 {
-                    value: (coinsPerMin * 60 * 24).toFixed(4),
+                    value: (coinsPerDay * 1).toFixed(4),
                     label: "day"
                 },
                 {
-                    value: (coinsPerMin * 60 * 24 * 30).toFixed(4),
+                    value: (coinsPerDay * 30).toFixed(4),
                     label: "month"
                 },
                 {
-                    value: (coinsPerMin * 60 * 24 * 365).toFixed(4),
+                    value: (coinsPerDay * 365).toFixed(4),
                     label: "year"
                 }
             ]
@@ -112,6 +110,7 @@ const PoolItem = ({
 
     return  <Grid 
                 item
+                xl={4}
                 lg={6}
                 md={6}
                 sm={12}

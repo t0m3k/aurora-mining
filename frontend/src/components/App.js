@@ -7,7 +7,7 @@ import * as userActions from '../actions/user'
 import Login from './Login'
 import Register from './Register'
 
-import { AppBar, Toolbar, IconButton, Typography, Divider, Drawer, Hidden } from 'material-ui'
+import { AppBar, Toolbar, IconButton, Typography, Divider, Drawer } from 'material-ui'
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List'
 import withStyles from 'material-ui/styles/withStyles'
 
