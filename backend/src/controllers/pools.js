@@ -14,7 +14,7 @@ exports.getMinerStats = (req, res) => {
 }
 
 exports.addMinerStats = (req, res) => {
-    Pool.update({address: req.body.address, pool: req.body.pool}, data, {upsert: true, setDefaultsOnInsert: true})
+    Pool.update({address: req.body.address, pool: req.body.pool}, req.body, {upsert: true, setDefaultsOnInsert: true})
     .then(stats => {
         res.json(stats)
     })
