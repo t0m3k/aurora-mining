@@ -51,28 +51,26 @@ exports.logOut = (req, res) => {
 
 exports.getUserData = (req, res) => {
     if(req.user) {
-        User.findOne({username: req.user.username})
+        return User.findOne({username: req.user.username}).lean()
         .then(user => {
             let poolsPromise = []
 
             
             poolsPromise = user.pools.map((pool) => {
-                return Pool.findOne({
+                return Pool.findOneOrCreate({
                         address: pool.address, 
                         pool: pool.pool
                 })
             })
 
-            Promise.all(poolsPromise)
+            return Promise.all(poolsPromise)
             .then((pools) => {
+                let resultPools = pools.map(pool => {
+                    const t = user.pools.find((p) => ((p.pool === pool.pool) && (p.address === pool.address)))
 
-                // user.pools.forEach(pool =>{
-                //         if(pools.find(newPool => (newPool.address == pool.address && newPool.pool == pool.pool))){
-                //             // TODO - UPDATE POOLS FROM pools VARIABLE
-                //         }
-                // })
-                
-                res.json({user: {...user._doc, pools:user.pools}, loggedIn: req.isAuthenticated()})
+                    return {...pool.toObject(), name: t.name}
+                })
+                res.json({user: {...user, pools: resultPools}, loggedIn: req.isAuthenticated()})
             })
         })
     } else {
@@ -87,21 +85,22 @@ exports.addPool = (req, res) => {
 
     User.findOne({username: req.user.username})
     .then(user => {
-        console.log(req.body)
+        if(user.pools.some(p => ((p.address == req.body.address) && (p.pool == req.body.pool)))){
+            return res.status(409).json({message: 'This address on this pool already exists!'})
+        }
         user.pools.push({
                 address:req.body.address, 
                 pool: req.body.pool,
                 name: req.body.name
             })
-        console.log(user.pools)
-        user.save()
+        return user.save()
         .then((updated) => res.json(updated))
-        .catch((err) => message(req, res, err.message))
 
         // User.findByIdAndUpdate(user._id, user, {new: true})
         // .then((updated) => res.json(updated))
         // .catch((err) => message(req, res, err.message))
     })
+    .catch((err) => message(req, res, err.message))
 }
 
 module.exports = exports;
