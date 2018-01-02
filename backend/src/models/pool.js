@@ -48,7 +48,7 @@ var PoolSchema = mongoose.Schema({
     },
     updTime: {
         type: Date,
-        default: new Date()
+        default: new Date(0)
     },
     lastSeen: {
         type: Date,
