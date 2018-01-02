@@ -10,7 +10,7 @@ import * as formHelpers from './helpers'
 const styles = theme => ({
   container: {
       heigth: "100%",
-      marginTop: "20%"
+      marginTop: "10%"
   }
 })
 

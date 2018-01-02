@@ -22,6 +22,7 @@
   },
   "scripts": {
     "build": "mv -n _local_conf.js local_conf.js && rm -rf client && cd frontend && npm i && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
   }
 }
