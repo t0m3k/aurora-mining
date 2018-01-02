@@ -9,7 +9,6 @@ import Dialog, {
 } from 'material-ui/Dialog'
 import AddPoolForm from '../Forms/AddPoolForm'
 import axios from 'axios'
-import * as userActions from '../../actions/user'
 import Grid from 'material-ui/Grid/Grid'
 import { SubmissionError } from 'redux-form'
 import poolsControler from '../../controllers/pools'
@@ -30,7 +29,7 @@ class PoolList extends Component {
         })
     }
 
-    updatePool(pool, address){
+    updatePool = (pool, address) => {
         const dispatch = this.props.dispatch        
         poolsControler.getFresh[pool](address)
         .then(pool => {
@@ -58,8 +57,9 @@ class PoolList extends Component {
             pool: values.pool,
             name: values.name
         })
-        .then(resp =>{
-            dispatch(userActions.fetchUser())
+        .then(resp => {
+            dispatch({type: "FETCH_USER_DONE", ...resp.data})
+            this.checkUpdates()
         })
         .catch(err => {
             throw new SubmissionError({_error: err.response.data.message})

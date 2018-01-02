@@ -57,7 +57,7 @@ const user = (state =
             return {
                 ...state,
                 user: {
-                    ...user,
+                    ...state.user,
                     pools
                 }
             }
