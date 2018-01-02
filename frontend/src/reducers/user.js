@@ -47,6 +47,21 @@ const user = (state =
                 error: true,
                 errorMsg: action.error
             }
+        case 'UPDATE_POOL':
+            const pools = state.user.pools.map(p => {
+                if((p.pool !== action.pool.pool) && (p.address !== action.pool.address)){
+                    return p
+                }
+                return {...action.pool, name: p.name, _id: p._id }
+            })
+            console.log(pools, action.pool)
+            return {
+                ...state,
+                user: {
+                    ...user,
+                    pools
+                }
+            }
         case 'LOGOUT_USER':
             return {
                 user: {},
