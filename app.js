@@ -2,7 +2,8 @@ var express                 = require('express'),
     bodyParser              = require('body-parser'),
     passport                = require('passport'),
     LocalStrategy           = require('passport-local'),
-    mongoose                = require('mongoose');
+    mongoose                = require('mongoose'),
+    path                    = require('path')
 
 const LOCALCONF             = require('./local_conf.js');
 
@@ -38,9 +39,6 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 passport.use(new LocalStrategy(User.authenticate()));
 
-// EXPOSE FILES IN 'public' TO USERS
-app.use(express.static(__dirname +"/public"));
-
 // CUSTOM SETTINGS
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
@@ -54,10 +52,18 @@ mongoose.connect(MONGODB, {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'client')));
+
+
 // ROUTES USE
 
 app.use("/api/users", usersRoutes);
 app.use("/api/pools", poolsRoutes);
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname+'/client/index.html'));
+  });
 
 app.listen(PORT, HOST, function(){
     console.log('Server is running at');

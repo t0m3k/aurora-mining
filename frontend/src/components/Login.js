@@ -9,7 +9,6 @@ class Login extends Component {
 
     submit = (values) => {
         const dispatch = this.props.dispatch
-        // this.props.dispatch(userActions.loginUser(values.username, values.password))
         dispatch({type: "LOGIN_USER_START"})
         return axios.post('/api/users/login', {
             username: values.username,
@@ -32,8 +31,6 @@ class Login extends Component {
     }
 
     render() {
-
-
         return (
             <div>
                 <LoginForm onSubmit={this.submit} />
