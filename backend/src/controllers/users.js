@@ -85,7 +85,7 @@ exports.addPool = (req, res) => {
 
     User.findOne({username: req.user.username})
     .then(user => {
-        if(user.pools.some(p => ((p.address == req.body.address) && (p.pool == req.body.pool)))){
+        if(user.pools.some(p => ((p.address === req.body.address) && (p.pool === req.body.pool)))){
             return res.status(409).json({message: 'This address on this pool already exists!'})
         }
         user.pools.push({
@@ -94,11 +94,7 @@ exports.addPool = (req, res) => {
                 name: req.body.name
             })
         return user.save()
-        .then((updated) => res.json(updated))
-
-        // User.findByIdAndUpdate(user._id, user, {new: true})
-        // .then((updated) => res.json(updated))
-        // .catch((err) => message(req, res, err.message))
+        .then((updated) => exports.getUserData(req, res))
     })
     .catch((err) => message(req, res, err.message))
 }
