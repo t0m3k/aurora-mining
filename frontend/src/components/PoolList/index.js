@@ -18,14 +18,24 @@ import {timeCounter} from '../../controllers/helper'
 
 class PoolList extends Component {
     componentWillMount() {
-        this.updatePools()
+        this.checkUpdates()
     }
 
-    updatePools = () => {
+    checkUpdates = () => {
         const update = this.props.user.pools.filter(pool => {
             return timeCounter(pool.time, 5)
         })
-        const promises = update.map(pool => poolsControler.getFresh[pool.pool](pool.address))
+        update.forEach(pool => {
+            this.updatePool(pool.pool, pool.address)
+        })
+    }
+
+    updatePool(pool, address){
+        const dispatch = this.props.dispatch        
+        poolsControler.getFresh[pool](address)
+        .then(pool => {
+            dispatch({ type: "UPDATE_POOL", pool })
+        })
     }
 
     handleClickOpen = () => {
@@ -49,7 +59,7 @@ class PoolList extends Component {
             name: values.name
         })
         .then(resp =>{
-            dispatch(userActions.fetchUser());
+            dispatch(userActions.fetchUser())
         })
         .catch(err => {
             throw new SubmissionError({_error: err.response.data.message})
