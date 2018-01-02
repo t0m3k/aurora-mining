@@ -7,7 +7,6 @@ export function fetchUser() {
         axios.get('/users')
         .then(user => {
             dispatch({type: "FETCH_USER_DONE", ...user.data})
-            console.log(user.data)
             if(user.data.user){
                 dispatch(currencyActions.getCurrency(user.data.user.currency))
             }
@@ -31,7 +30,7 @@ export function registerUser(username, password, email, currency) {
                 if (err.response.status === 409) {
                     dispatch({type: "LOGIN_USER_ERROR", error: "This username is taken."})
                 } else {
-                    dispatch({type: "LOGIN_USER_ERROR", error: "Uknown error"})
+                    dispatch({type: "LOGIN_USER_ERROR", error: "Unknown error"})
                 }
             }
         })
