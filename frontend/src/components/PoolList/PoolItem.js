@@ -1,12 +1,34 @@
-import React from 'react';
+import React from 'react'
 import {dateToString} from '../../controllers/helper'
-import Grid from 'material-ui/Grid/Grid';
-import Paper from 'material-ui/Paper/Paper';
-import Typography from 'material-ui/Typography/Typography';
-import List from 'material-ui/List/List';
-import ListItemText from 'material-ui/List/ListItemText';
-import ListItem from 'material-ui/List/ListItem';
-import Divider from 'material-ui/Divider/Divider';
+import Grid from 'material-ui/Grid/Grid'
+import Paper from 'material-ui/Paper/Paper'
+import Typography from 'material-ui/Typography/Typography'
+import ListItemText from 'material-ui/List/ListItemText'
+import ListItem from 'material-ui/List/ListItem'
+import Divider from 'material-ui/Divider/Divider'
+import { withStyles } from 'material-ui/styles'
+import TextField from 'material-ui/TextField/TextField';
+
+
+const styles = theme => ({
+    root: {
+        padding: theme.spacing.unit,
+        [theme.breakpoints.up('md')]: {
+            
+        },
+        [theme.breakpoints.down('sm')]: {
+        },
+    },
+    listItem: {
+        textAlign: 'center',
+        [theme.breakpoints.down('sm')]: {
+            padding: 0
+        },
+    },
+    heading: {
+        textAlign: 'center'
+    }
+  })
 
 const PoolItem = ({
         payAmount,
@@ -24,7 +46,8 @@ const PoolItem = ({
         name,
         currency,
         rate,
-        unpaid
+        unpaid,
+        classes
     }) => {
     // array of stat segments to be displayed
     const segments = [
@@ -105,24 +128,31 @@ const PoolItem = ({
                 }
             ]
         }
-    ].map(value => (<Segment key={value.header + _id} address={address} pool={pool} {...value} />));
+    ].map(value => (<Segment key={value.header + _id} classes={classes} address={address} pool={pool} {...value} />));
 
 
     return  <Grid 
                 item
                 xl={4}
-                lg={6}
+                lg={4}
                 md={6}
-                sm={12}
+                sm={10}
                 xs={12}
-            >
-                <Paper>
-                <Typography type="headline" component="h2">
+                >
+            
+                <Paper className={classes.root}>
+                <Typography type="headline" className={classes.heading} component="h2">
                     { name }
                 </Typography>
-                    <div className="ui tiny header">{ address }
-                    <div className="meta">{ pool }</div>
-                    </div>
+                    <TextField
+                    fullWidth
+                    disabled
+                    value={ address }
+                    />
+
+                    <Typography className={classes.heading}>
+                        { pool }
+                    </Typography>
 
                 {segments}
                 </Paper>
@@ -131,29 +161,42 @@ const PoolItem = ({
 
 };
 
-const Segment = ({header, values, address}) => {
-    const stats = values.map((value) => (<Stat key={value.label + value.value + address} {...value}/>))
+const Segment = ({header, values, address, classes}) => {
+    const stats = values.map((value) => (<Stat key={value.label + value.value + address} classes={classes} {...value}/>))
     return (
         <Grid item>
             <Divider />
-            <Typography type="subheading" component="h3">
+            <Typography className={classes.heading} type="subheading" component="h3">
                 {header}
             </Typography>
 
-            <List>
+            <Grid 
+                container
+                justify={'center'}
+                spacing={0}
+            >
                 {stats}            
-            </List>
+            </Grid>
         </Grid>
     )
 }
 
-const Stat = ({label, value}) => {
+const Stat = ({label, value, classes}) => {
 
     return(
-        <ListItem>
+    <Grid 
+        item
+        xl={4}
+        lg={4}
+        md={4}
+        sm={4}
+        xs={6}
+    >
+        <ListItem className={classes.listItem} >
             <ListItemText primary={value} secondary={label} />
         </ListItem>
+    </Grid>
     )
 }
 
-export default PoolItem;
+export default withStyles(styles)(PoolItem)
