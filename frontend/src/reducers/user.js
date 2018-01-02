@@ -54,7 +54,6 @@ const user = (state =
                 }
                 return {...action.pool, name: p.name, _id: p._id }
             })
-            console.log(pools, action.pool)
             return {
                 ...state,
                 user: {
