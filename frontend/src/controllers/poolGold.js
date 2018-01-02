@@ -67,15 +67,13 @@ export async function getFresh(address) {
     
     // return all data
     stats = {
-        _id: {
-          address: address,
-          pool: "poolGold"
-        },
+        address: address,
+        pool: "poolGold",
         coin: "BTG",
         workers: Object.keys(stats.workers).length,
         avgHashRate: avgHashRate,
-        coinsPerMin: cpm,
-        usdPerMin: cpm * 465,
+        coinsPerDay: cpd,
+        usdPerDay: cpd * 260,
         unpaid: unpaid,
         hashRate: stats.totalHash / 500000,
         estPay: new Date(estPayTime),

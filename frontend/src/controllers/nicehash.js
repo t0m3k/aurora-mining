@@ -26,7 +26,14 @@ export function getFresh(address) {
         throw {message: "Api limit exceeded"}
       }
       
-      const coinsPerDay = history.current.reduce((p, c) => (p + parseFloat(c.profitability)), 0)
+      const coinsPerDay = history.current.reduce((p, c) => {
+        const a = parseFloat(c.data[0].a)
+        if(!a){
+          return p
+        }
+        const prof = parseFloat(c.profitability) * a
+        return (p + prof)
+      }, 0)
       const unpaid = stats.stats.reduce((p, c) => (p + parseFloat(c.balance)), 0)
       const usdPerDay = (btcToUsd * coinsPerDay).toFixed(2)
 
@@ -35,11 +42,11 @@ export function getFresh(address) {
       let time = new Date(),
           pay = history.nh_wallet ? 0.001 : 0.01
 
-      let toEarn = pay - unpaid; // amount tha need to be earned
+      let toEarn = pay - unpaid // amount tha need to be earned
 
-      let waitTime = ((toEarn / coinsPerDay) * 60) // seconds 
+      let waitTime = Math.round((toEarn / coinsPerDay) * 86400000) // milliseconds 
 
-      let estPayTime = Math.round(time + waitTime)
+      let estPayTime = Math.round(time.getTime() + waitTime)
       
       // return all data
       stats = {
@@ -57,7 +64,7 @@ export function getFresh(address) {
           time: new Date(),
           updTime: new Date(),
           lastSeen: new Date(),
-          history: history
+          history: []
       }
 
       helper.saveLocal(stats)
