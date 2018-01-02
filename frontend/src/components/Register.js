@@ -10,7 +10,7 @@ class Login extends Component {
     submit = (values) => {
         const dispatch = this.props.dispatch
         dispatch({type: "LOGIN_USER_START"})
-        return axios.post('/users/register', {
+        return axios.post('/api/users/register', {
             username: values.username, password: values.password, email: values.email, currency: values.currency
         })
         .then((resp) => {

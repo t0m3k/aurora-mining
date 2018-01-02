@@ -56,8 +56,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // ROUTES USE
 
-app.use("/users", usersRoutes);
-app.use("/pools", poolsRoutes);
+app.use("/api/users", usersRoutes);
+app.use("/api/pools", poolsRoutes);
 
 app.listen(PORT, HOST, function(){
     console.log('Server is running at');

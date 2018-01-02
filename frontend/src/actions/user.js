@@ -4,7 +4,7 @@ import * as currencyActions from './currency'
 export function fetchUser() {
     return (dispatch) =>{
         dispatch({type: "FETCH_USER_START"})
-        axios.get('/users')
+        axios.get('/api/users')
         .then(user => {
             dispatch({type: "FETCH_USER_DONE", ...user.data})
             if(user.data.user){
@@ -18,7 +18,7 @@ export function fetchUser() {
 export function registerUser(username, password, email, currency) {
     return (dispatch) =>{
         dispatch({type: "LOGIN_USER_START"})
-        axios.post('/users/register', {
+        axios.post('/api/users/register', {
             username, password, email, currency
         })
         .then((resp) => {
@@ -39,7 +39,7 @@ export function registerUser(username, password, email, currency) {
 
 export function logoutUser() {
     return (dispatch) =>{
-        axios.get('/users/logout')
+        axios.get('/api/users/logout')
         .then(resp => {
             dispatch({type: "LOGOUT_USER"})
         })

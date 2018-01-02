@@ -11,7 +11,7 @@ class Login extends Component {
         const dispatch = this.props.dispatch
         // this.props.dispatch(userActions.loginUser(values.username, values.password))
         dispatch({type: "LOGIN_USER_START"})
-        return axios.post('/users/login', {
+        return axios.post('/api/users/login', {
             username: values.username,
             password: values.password
         })

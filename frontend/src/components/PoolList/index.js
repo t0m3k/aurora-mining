@@ -49,7 +49,7 @@ class PoolList extends Component {
 
     addPoolSubmit = (values) => {
         const username = this.props.user.username
-        const url = `/users/u/${username}`
+        const url = `/api/users/u/${username}`
         const dispatch = this.props.dispatch
 
         return axios.post(url, {

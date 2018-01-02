@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export function saveLocal(stats) { // save data to local api
-    fetch(`/pools/${stats.pool}`, {
+    fetch(`/api/pools/${stats.pool}`, {
         method: 'post',
         headers: new Headers({
             'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ export function saveLocal(stats) { // save data to local api
 }
   
 export function getLocal(pool, address) { // fetch data from local api
-    return fetch(`/pools/${pool}/${address}`)
+    return fetch(`/api/pools/${pool}/${address}`)
     .then(resp => {
       if(!resp.ok) {
         if(resp.status >=400 && resp.status < 500) {
