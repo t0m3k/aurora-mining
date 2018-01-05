@@ -24,7 +24,7 @@ mongoose.Promise = global.Promise;
 
 const PORT = process.env.PORT || LOCALCONF.PORT;
 const HOST = process.env.HOST || LOCALCONF.HOST;
-const MONGODB = process.env.MONGODB || LOCALCONF.MONGODB;
+const MONGODB = LOCALCONF.MONGODB;
 const SECRET = LOCALCONF.SECRET;
 
 // passport configuration

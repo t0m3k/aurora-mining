@@ -99,4 +99,16 @@ exports.addPool = (req, res) => {
     .catch((err) => message(req, res, err.message))
 }
 
+exports.deletePool = (req, res) => {
+    if(!req.user || (req.user.username !== req.params.username)) {
+        return message(req, res, "You can't do that!");
+    }
+
+    User.update({username: req.params.username}, {$pull: {pools: {pool: req.params.pool, address: req.params.address}}})
+    .then(() => {
+        exports.getUserData(req, res)
+    })
+    .catch((err) => message(req, res, err.message))
+}
+
 module.exports = exports;

@@ -7,7 +7,9 @@ import ListItemText from 'material-ui/List/ListItemText'
 import ListItem from 'material-ui/List/ListItem'
 import Divider from 'material-ui/Divider/Divider'
 import { withStyles } from 'material-ui/styles'
-import TextField from 'material-ui/TextField/TextField';
+import TextField from 'material-ui/TextField/TextField'
+import IconButton from 'material-ui/IconButton/IconButton'
+import CloseIcon from 'material-ui-icons/Close'
 
 
 const styles = theme => ({
@@ -47,7 +49,8 @@ const PoolItem = ({
         currency,
         rate,
         unpaid,
-        classes
+        classes,
+        deleteAction
     }) => {
     // array of stat segments to be displayed
     const segments = [
@@ -141,6 +144,9 @@ const PoolItem = ({
                 >
             
                 <Paper className={classes.root}>
+                <IconButton onClick={deleteAction(pool, address)}>
+                    <CloseIcon />
+                </IconButton>
                 <Typography type="headline" className={classes.heading} component="h2">
                     { name }
                 </Typography>

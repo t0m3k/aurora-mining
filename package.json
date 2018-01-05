@@ -7,7 +7,7 @@
     "pos"
   ],
   "author": "Tomasz Tracz",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.17.1",
     "body-parser": "^1.18.2",
@@ -21,7 +21,7 @@
     "passport-local-mongoose": "^4.4.0"
   },
   "scripts": {
-    "build": "mv -n _local_conf.js local_conf.js && rm -rf client && cd frontend && npm i && npm run build",
+    "build": "cp -n _local_conf.js local_conf.js && rm -rf client && cd frontend && npm i && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   }

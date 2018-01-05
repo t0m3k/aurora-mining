@@ -17,6 +17,9 @@ router.route("/logout")
 router.route("/u/:username")
 .post(usersControllers.addPool)
 
+router.route("/u/:username/:pool/:address")
+.delete(usersControllers.deletePool)
+
 router.route("/")
 .get(usersControllers.getUserData);
 

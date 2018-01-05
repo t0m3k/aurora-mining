@@ -48,7 +48,7 @@ componentWillMount(){
 }
 
 render() {
-  const { loggedIn, classes, theme } = this.props
+  const { loggedIn, classes, theme, loading } = this.props
 
   const drawer = (
       <div onClick={this.handleDrawerToggle}>
@@ -141,13 +141,11 @@ render() {
         </Drawer>
 
         <main className={classes.content}>
-
           <Switch>
             <Route exact path='/' render={() => loggedIn ? <PoolList /> : <Redirect to='/login' /> } />
             <Route path='/login' render={() => loggedIn ? <Redirect to='/' /> : <Login /> } />
             <Route path='/register' render={() => loggedIn ? <Redirect to='/' /> : <Register /> } />
           </Switch>
-
         </main>
 
       </div>

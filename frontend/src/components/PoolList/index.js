@@ -37,6 +37,18 @@ class PoolList extends Component {
         })
     }
 
+    deletePool = (pool, address) => {
+        const dispatch = this.props.dispatch
+        const username = this.props.user.username
+        const url = `/api/users/u/${username}/${pool}/${address}`
+        return () => {
+        return axios.delete(url)
+        .then(resp => {
+            dispatch({type: "FETCH_USER_DONE", ...resp.data})
+            this.checkUpdates()
+        })}
+    }
+
     handleClickOpen = () => {
         const dispatch = this.props.dispatch
         dispatch({ type: "POOL_FORM_OPEN" });
@@ -47,15 +59,15 @@ class PoolList extends Component {
         dispatch({ type: "POOL_FORM_CLOSE" });
     }
 
-    addPoolSubmit = (values) => {
+    addPoolSubmit = ({address, pool, name}) => {
         const username = this.props.user.username
         const url = `/api/users/u/${username}`
         const dispatch = this.props.dispatch
 
         return axios.post(url, {
-            address: values.address,
-            pool: values.pool,
-            name: values.name
+            address: address,
+            pool: pool,
+            name: name
         })
         .then(resp => {
             dispatch({type: "FETCH_USER_DONE", ...resp.data})
@@ -77,6 +89,7 @@ class PoolList extends Component {
                 <PoolItem
                     key = {pool._id}
                     {...pool}
+                    deleteAction = {this.deletePool}
                     currency = {this.props.currency.name}
                     rate = {this.props.currency.rate}
                 />
