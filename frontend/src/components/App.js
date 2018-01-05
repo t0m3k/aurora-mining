@@ -16,6 +16,8 @@ import AccountBox from 'material-ui-icons/AccountBox'
 import ArrowLeft from 'material-ui-icons/ArrowBack'
 import HomeIcon from 'material-ui-icons/Home'
 
+import '../css/spinner.css'
+
 import AppStyles from './AppStyles.js'
 
 const title = "Aurora Mining Stats"
@@ -141,11 +143,17 @@ render() {
         </Drawer>
 
         <main className={classes.content}>
+        {loading &&
+          <div className="loader">Loading...</div>
+        }
+
+        {!loading &&
           <Switch>
             <Route exact path='/' render={() => loggedIn ? <PoolList /> : <Redirect to='/login' /> } />
             <Route path='/login' render={() => loggedIn ? <Redirect to='/' /> : <Login /> } />
             <Route path='/register' render={() => loggedIn ? <Redirect to='/' /> : <Register /> } />
           </Switch>
+        }
         </main>
 
       </div>
