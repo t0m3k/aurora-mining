@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as userActions from '../actions/user'
-import RegisterForm from './Forms/RegisterForm'
+import SettingsForm from './Forms/SettingsForm'
 import { SubmissionError } from 'redux-form'
 import axios from 'axios'
 
-class Register extends Component {
+class Settings extends Component {
 
     submit = (values) => {
         const dispatch = this.props.dispatch
-        dispatch({type: "LOGIN_USER_START"})
-        return axios.post('/api/users/register', {
-            username: values.username, password: values.password, email: values.email, currency: values.currency
+        const username = this.props.user.username
+        const url = `/api/users/u/${ username }`
+        return axios.update(url, {
+            password: values.password, currency: values.currency
         })
         .then((resp) => {
             dispatch(userActions.fetchUser());
@@ -32,11 +33,11 @@ class Register extends Component {
     }
 
     render() {
-
+        const currency = this.props.user.currency
 
         return (
             <div>
-                <RegisterForm onSubmit={this.submit} />
+                <SettingsForm currency = { currency } onSubmit={this.submit} />
             </div>
         )
     }
@@ -44,8 +45,9 @@ class Register extends Component {
 
 const mapStateToProps = state => {
     return {
-        ...state.user
+        user: state.user.user,
+        currency: state.currency
     }
-  }
+}
 
-export default connect(mapStateToProps)(Register);
+export default connect(mapStateToProps)(Settings);

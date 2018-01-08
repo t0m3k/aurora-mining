@@ -2,11 +2,11 @@ import * as helper from './helper'
 import axios from 'axios'
 
 function apiCall(address, type) { // fetch data from flypool api
-  return axios(`https://cors-anywhere.herokuapp.com/https://api.nicehash.com/api?method=${ type }&addr=${ address }`)
+  return axios(`http://cors-anywhere.herokuapp.com/https://api.nicehash.com/api?method=${ type }&addr=${ address }`)
 }
 
 function btcApi() { // fetch data from flypool api
-  return axios(`https://api.coindesk.com/v1/bpi/currentprice/USD.json`)
+  return axios(`https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD`)
 }
 
 
@@ -21,9 +21,12 @@ export function getFresh(address) {
   .then(results => {
       let stats = results[0].data.result
       let history = results[1].data.result
-      let btcToUsd = results[2].data.bpi.USD.rate_float
+      let btcToUsd = results[2].data.USD
+
+
       if(stats.error || history.error){
-        throw {message: "Api limit exceeded"}
+        const err = {message: "Api limit exceeded"}
+        throw err
       }
       
       const coinsPerDay = history.current.reduce((p, c) => {

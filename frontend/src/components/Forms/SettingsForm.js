@@ -2,10 +2,11 @@ import React from 'react'
 import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid/Grid'
 import Button from 'material-ui/Button/Button'
+import { MenuItem } from 'material-ui/Menu'
 import { Link } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
-import Typography from 'material-ui/Typography/Typography'
 import * as formHelpers from './helpers'
+import red from 'material-ui/colors/red';
 
 const styles = theme => ({
   container: {
@@ -17,8 +18,8 @@ const styles = theme => ({
 const validate = values => {
     const errors = {}
     const requiredFields = [
-      'username',
-      'password'
+      'password',
+      'currency'
     ]
     requiredFields.forEach(field => {
       if (!values[field]) {
@@ -32,11 +33,12 @@ const validate = values => {
       errors.email = 'Invalid email address'
     }
     return errors
-}
+  }
+  
 
-let LoginForm = (props) => {
+let SettingsForm = (props) => {
 
-    const { handleSubmit, pristine, submitting, classes, error } = props
+    const { handleSubmit, pristine, submitting, classes, currency } = props
 
     return (
         <Grid
@@ -48,46 +50,56 @@ let LoginForm = (props) => {
         >
             <form onSubmit={handleSubmit} noValidate autoComplete="off">
                 <Grid direction='column' spacing={8} container>
+
                     <Grid item>
                         <Field
-                            name="username"
-                            id="username" 
-                            type='text'
+                            name="currency"
+                            component={formHelpers.renderSelectField}
+                            label="Currency"
+                        >
+                            <MenuItem value="GBP">GBP</MenuItem>
+                            <MenuItem value="USD">USD</MenuItem>
+                            <MenuItem value="EUR">EUR</MenuItem>
+                            <MenuItem value="PLN">PLN</MenuItem>
+                        </Field>
+                    </Grid>
+
+                    <Grid item>
+                        <Field
+                            name="newPassword"
+                            type="password"
                             component={formHelpers.renderTextField}
-                            label="Username"
-                            autoComplete="username"
+                            label="New password"
                         />
                     </Grid>
 
                     <Grid item>
                         <Field
                             name="password"
-                            id="password"
-                            type='password'
+                            type="password"
                             component={formHelpers.renderTextField}
-                            label="Password"
-                            autoComplete="current-password"
+                            label="Old password"
                         />
-                    </Grid>
-
-                    <Grid item>
-                        <Typography color='error'>
-                            {error ? error : ' '}
-                        </Typography>
                     </Grid>
 
                     <Grid item>
                         <Button
                             type='sumbit'
                             raised 
-                            color="accent"
+                            color="primary"
                             disabled={pristine || submitting}
                         >
-                            Login 
+                            Save 
                         </Button>
-                        <Link style={{marginLeft: '16px'}} to='/register'>
-                            Register
-                        </Link>
+                    </Grid>
+
+                    <Grid item>
+                        <Button 
+                            raised
+                            color={ 'accent' }
+                        >
+                            Delete account
+                        </Button>
                     </Grid>
 
                 </Grid>
@@ -98,9 +110,10 @@ let LoginForm = (props) => {
 
 
 
-LoginForm = reduxForm({
-    form: 'login',
+SettingsForm = reduxForm({
+    // a unique name for the form
+    form: 'settings',
     validate
-  })(LoginForm)
+  })(SettingsForm)
 
-export default withStyles(styles)(LoginForm);
+export default withStyles(styles)(SettingsForm);

@@ -6,6 +6,7 @@ import {connect} from 'react-redux/'
 import * as userActions from '../actions/user'
 import Login from './Login'
 import Register from './Register'
+import Settings from './Settings'
 
 import { AppBar, Toolbar, IconButton, Typography, Divider, Drawer } from 'material-ui'
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List'
@@ -15,6 +16,7 @@ import MenuIcon from 'material-ui-icons/Menu'
 import AccountBox from 'material-ui-icons/AccountBox'
 import ArrowLeft from 'material-ui-icons/ArrowBack'
 import HomeIcon from 'material-ui-icons/Home'
+import SettingsIcon from 'material-ui-icons/Settings'
 
 import '../css/spinner.css'
 
@@ -97,12 +99,20 @@ render() {
           }
 
           {loggedIn &&
+          <div>
+            <ListItem button component={ Link } to='/settings'>
+              <ListItemIcon>
+                <SettingsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Settings" />
+            </ListItem>
             <ListItem button onClick={ this.handleLogout }>
               <ListItemIcon>
                 <AccountBox />
               </ListItemIcon>
               <ListItemText primary="Logout" />
             </ListItem>
+          </div>
           }
           
         </List>
@@ -144,12 +154,13 @@ render() {
 
         <main className={classes.content}>
         {loading &&
-          <div className="loader">Loading...</div>
+          <div className={"loader " + classes.loader}>Loading...</div>
         }
 
         {!loading &&
           <Switch>
             <Route exact path='/' render={() => loggedIn ? <PoolList /> : <Redirect to='/login' /> } />
+            <Route exact path='/settings' render={() => loggedIn ? <Settings /> : <Redirect to='/login' /> } />
             <Route path='/login' render={() => loggedIn ? <Redirect to='/' /> : <Login /> } />
             <Route path='/register' render={() => loggedIn ? <Redirect to='/' /> : <Register /> } />
           </Switch>

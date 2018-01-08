@@ -48,7 +48,7 @@ export function getFresh(address) {
           cpm = stats.coinsPerMin,
           pay = config.minPayout / 100000000; // threshold after whitch payment will be released
 
-      let toEarn = pay - unpaid; // amount tha need to be earned
+      let toEarn = pay - unpaid // amount tha need to be earned
 
       let waitTime = ((toEarn / cpm) * 60); // seconds 
 

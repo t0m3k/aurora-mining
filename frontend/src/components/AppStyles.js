@@ -32,9 +32,8 @@ const styles = (drawerWidth) => (theme => ({
       height: 'calc(100% - 56px)',
       marginTop: 56
     },
-    progress: {
-      margin: "20% auto",
-      textAlign: "center"
+    loader: {
+      color: theme.palette.primary[500]
     }
 }))
 
