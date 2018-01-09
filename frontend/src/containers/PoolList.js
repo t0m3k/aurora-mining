@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import PoolItem from './PoolItem'
+import PoolItem from '../components/PoolItem'
 import { connect } from 'react-redux'
 import AddIcon from 'material-ui-icons/Add'
 import Button from 'material-ui/Button'
@@ -7,12 +7,12 @@ import Dialog, {
   DialogContent,
   DialogTitle,
 } from 'material-ui/Dialog'
-import AddPoolForm from '../Forms/AddPoolForm'
+import AddPoolForm from '../components/Forms/AddPoolForm'
 import axios from 'axios'
 import Grid from 'material-ui/Grid/Grid'
 import { SubmissionError } from 'redux-form'
-import poolsControler from '../../controllers/pools'
-import {timeCounter} from '../../controllers/helper'
+import poolsControler from '../controllers/pools'
+import {timeCounter} from '../controllers/helper'
 
 
 class PoolList extends Component {

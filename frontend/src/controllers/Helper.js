@@ -60,7 +60,7 @@ export function dateToString(date){
 }
 
 
-export function getCurrency(currency){
+export async function getCurrency(currency){
     const USD = {
         name: 'USD', 
         rate: 1

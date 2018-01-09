@@ -24,17 +24,20 @@ export const renderSelectField = ({
     input,
     label,
     name,
+    meta,
+    prev,
     meta: { touched, error },
     children,
     ...custom
     }) => {
+        const value = (input.value && input.value.length > 0) ? input.value : prev
     return (
         <FormControl>
         <InputLabel htmlFor={name}>{label}</InputLabel>
             <Select
                 label={label}
                 error={!!touched && !!error}
-                value={input.value}
+                value={value}
                 style={{minWidth: 120}}
                 onChange={(value) => input.onChange(value)}
                 children={children}

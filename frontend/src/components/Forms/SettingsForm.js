@@ -18,7 +18,6 @@ const styles = theme => ({
 const validate = values => {
     const errors = {}
     const requiredFields = [
-      'password',
       'currency'
     ]
     requiredFields.forEach(field => {
@@ -54,6 +53,9 @@ let SettingsForm = (props) => {
                     <Grid item>
                         <Field
                             name="currency"
+                            props={{
+                                prev: currency
+                            }}
                             component={formHelpers.renderSelectField}
                             label="Currency"
                         >
@@ -65,24 +67,6 @@ let SettingsForm = (props) => {
                     </Grid>
 
                     <Grid item>
-                        <Field
-                            name="newPassword"
-                            type="password"
-                            component={formHelpers.renderTextField}
-                            label="New password"
-                        />
-                    </Grid>
-
-                    <Grid item>
-                        <Field
-                            name="password"
-                            type="password"
-                            component={formHelpers.renderTextField}
-                            label="Old password"
-                        />
-                    </Grid>
-
-                    <Grid item>
                         <Button
                             type='sumbit'
                             raised 
@@ -90,15 +74,6 @@ let SettingsForm = (props) => {
                             disabled={pristine || submitting}
                         >
                             Save 
-                        </Button>
-                    </Grid>
-
-                    <Grid item>
-                        <Button 
-                            raised
-                            color={ 'accent' }
-                        >
-                            Delete account
                         </Button>
                     </Grid>
 

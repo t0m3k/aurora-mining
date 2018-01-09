@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as userActions from '../actions/user'
-import LoginForm from './Forms/LoginForm'
+import LoginForm from '../components/Forms/LoginForm'
 import { SubmissionError } from 'redux-form'
 import axios from 'axios'
 

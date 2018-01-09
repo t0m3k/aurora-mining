@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Route, Link, withRouter, Redirect } from 'react-router-dom/'
 import Switch from 'react-router-dom/Switch'
-import PoolList from './PoolList/'
+import PoolList from './PoolList'
 import {connect} from 'react-redux/'
 import * as userActions from '../actions/user'
 import Login from './Login'

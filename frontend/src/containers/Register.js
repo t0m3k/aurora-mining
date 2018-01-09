@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as userActions from '../actions/user'
-import RegisterForm from './Forms/RegisterForm'
+import RegisterForm from '../components/Forms/RegisterForm'
 import { SubmissionError } from 'redux-form'
 import axios from 'axios'
 

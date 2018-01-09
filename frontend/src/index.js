@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Router from 'react-router-dom/BrowserRouter'
-import App from './components/App'
+import App from './containers/App'
 
 // REDUX
 import {Provider} from 'react-redux'
