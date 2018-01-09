@@ -22,7 +22,7 @@ class PoolList extends Component {
 
     checkUpdates = () => {
         const update = this.props.user.pools.filter(pool => {
-            return timeCounter(pool.time, 5)
+            return timeCounter(pool.updTime, 5)
         })
         update.forEach(pool => {
             this.updatePool(pool.pool, pool.address)
