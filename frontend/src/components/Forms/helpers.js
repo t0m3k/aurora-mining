@@ -30,7 +30,12 @@ export const renderSelectField = ({
     children,
     ...custom
     }) => {
-        const value = (input.value && input.value.length > 0) ? input.value : prev
+        let value = ''
+        if (input.value && input.value.length > 0){
+            value = input.value
+        } else if(prev && prev.length > 0) {
+            value = prev
+        }
     return (
         <FormControl>
         <InputLabel htmlFor={name}>{label}</InputLabel>
