@@ -16,6 +16,7 @@ router.route("/logout")
 
 router.route("/u/:username")
 .post(usersControllers.addPool)
+.put(usersControllers.updateUser)
 
 router.route("/u/:username/:pool/:address")
 .delete(usersControllers.deletePool)

@@ -83,7 +83,7 @@ exports.addPool = (req, res) => {
         return message(req, res, "You can't do that!");
     }
 
-    User.findOne({username: req.user.username})
+    User.findOne({username: req.params.username})
     .then(user => {
         if(user.pools.some(p => ((p.address === req.body.address) && (p.pool === req.body.pool)))){
             return res.status(409).json({message: 'This address on this pool already exists!'})
@@ -93,6 +93,21 @@ exports.addPool = (req, res) => {
                 pool: req.body.pool,
                 name: req.body.name
             })
+        return user.save()
+        .then((updated) => exports.getUserData(req, res))
+    })
+    .catch((err) => message(req, res, err.message))
+}
+
+exports.updateUser = (req, res) => {
+    if(!req.user || (req.user.username !== req.params.username)) {
+        return message(req, res, "You can't do that!");
+    }
+
+    User.findOne({username: req.user.username})
+    .then(user => {
+        user.currency = req.body.currency || user.currency
+        console.log(req.body)
         return user.save()
         .then((updated) => exports.getUserData(req, res))
     })
