@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var PoolSchema = mongoose.Schema({
+var poolSchema = mongoose.Schema({
     address: {
         type: String,
         required: true
@@ -61,9 +61,9 @@ var PoolSchema = mongoose.Schema({
     }]
 });
 
-PoolSchema.statics.findOneOrCreate = function(item, cb){
+poolSchema.statics.findOneOrCreate = function(item, cb){
     return (item ? this.findOne(item, cb):this.findOne({}, cb))
     .then(page=>page ? page : this.create(item, cb))
   }
 
-module.exports = mongoose.model("Pool", PoolSchema);
+module.exports = mongoose.model("Pool", poolSchema);
