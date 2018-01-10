@@ -36,7 +36,7 @@ exports.authUser = (req, res) => {
     User.findOne({username: req.body.username}).select('+password')
     .then(user => {
         if(!user) {
-            res.status(400).json({message: 'Invalid Username/Password', loggedIn: false})
+            return res.status(400).json({message: 'Invalid Username/Password', loggedIn: false})
         }
         user.comparePassword(req.body.password, (err, isMatch) => {
             if(isMatch){
