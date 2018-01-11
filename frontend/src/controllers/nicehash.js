@@ -2,7 +2,7 @@ import * as helper from './helper'
 import axios from 'axios'
 
 function apiCall(address, type) { // fetch data from flypool api
-  return axios(`http://cors-anywhere.herokuapp.com/https://api.nicehash.com/api?method=${ type }&addr=${ address }`)
+  return axios(`https://cors-anywhere.herokuapp.com/https://api.nicehash.com/api?method=${ type }&addr=${ address }`)
 }
 
 function btcApi() { // fetch data from flypool api
