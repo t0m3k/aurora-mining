@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as userActions from '../actions/user'
 import LoginForm from '../components/Forms/LoginForm'
-import SubmissionError from 'redux-form/lib/SubmissionError'
-import { destroy } from 'redux-form';
+import { SubmissionError } from 'redux-form'
 
 class Login extends Component {
 
@@ -15,30 +14,29 @@ class Login extends Component {
 
         return dispatch(userActions.loginUser(username, password))
         .then(() => {
-            dispatch(destroy('login'))
         })
         .catch((err) => {
             if(err.response){
                 if (err.response.status === 400) {
                     console.log("Wrong username or password")
                     dispatch({type: "LOGIN_USER_ERROR", error: "Wrong username or password"})
-                    throw new SubmissionError({_error: "Wrong username or password"})
+                    throw new SubmissionError({_error: "Wrong username or password."})
                 }
             }
             else {
                 dispatch({type: "LOGIN_USER_ERROR", error: "Unknwonw error"})
-                throw new SubmissionError({_error: "Unknwonw error"})
+                throw new SubmissionError({_error: "Unknwonw error."})
             }
         })
     }
 
     render() {
 
-        const {errorMsg} = this.props
+        console.log(this.props)
 
         return (
             <div>
-                <LoginForm errorMsg={errorMsg} onSubmit={this.submit} />
+                <LoginForm onSubmit={this.submit} />
             </div>
         )
     }

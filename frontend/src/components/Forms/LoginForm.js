@@ -8,10 +8,13 @@ import Typography from 'material-ui/Typography/Typography'
 import * as formHelpers from './helpers'
 
 const styles = theme => ({
-  container: {
-      heigth: "100%",
-      marginTop: "10%"
-  }
+    button: {
+        marginRight: theme.spacing.unit,
+    },
+    container: {
+        heigth: "100%",
+        marginTop: "10%"
+    }
 })
 
 const validate = values => {
@@ -36,7 +39,9 @@ const validate = values => {
 
 let LoginForm = (props) => {
 
-    const { handleSubmit, pristine, submitting, classes, errorMsg } = props
+    const { handleSubmit, pristine, submitting, classes, error } = props
+
+
 
     return (
         <Grid
@@ -71,23 +76,29 @@ let LoginForm = (props) => {
                     </Grid>
 
                     <Grid item>
-                        <Typography color='error'>
-                            {errorMsg ? errorMsg : ' '}
-                        </Typography>
-                    </Grid>
-
-                    <Grid item>
                         <Button
+                            className={classes.button}
                             type='sumbit'
                             raised 
-                            color="accent"
+                            color="primary"
                             disabled={pristine || submitting}
                         >
                             Login 
                         </Button>
-                        <Link style={{marginLeft: '16px'}} to='/register'>
+                        <Button
+                            className={classes.button}
+                            component={Link}
+                            to='/register'
+                            color="accent"
+                        >
                             Register
-                        </Link>
+                        </Button>
+
+                        <Grid item>
+                            <Typography color='error'>
+                                { error ? error : ' ' }
+                            </Typography>
+                        </Grid>
                     </Grid>
 
                 </Grid>
@@ -100,7 +111,6 @@ let LoginForm = (props) => {
 
 LoginForm = reduxForm({
     form: 'login',
-    destroyOnUnmount: false,
     validate
   })(LoginForm)
 
