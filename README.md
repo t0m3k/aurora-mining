@@ -4,6 +4,10 @@
 
 Simple mining pools monitoring tool. For now works with NiceHash and Flypool
 
+
+Currently you can find the app at: https://aurora-mining.herokuapp.com/
+
+
 ## What you need?
 
 - node.js - https://nodejs.org

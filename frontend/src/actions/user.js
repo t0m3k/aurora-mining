@@ -40,10 +40,8 @@ export function fetchUser() {
                 return Promise.resolve()
             })
             .catch(err => {
-                if(err.response.status === 400) {
-                    clearUserAuth()
-                    dispatch({type: "FETCH_USER_DONE", loggedIn: false})
-                }
+                clearUserAuth()
+                dispatch({type: "FETCH_USER_DONE", loggedIn: false})
             })
         }
     }
