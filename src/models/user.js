@@ -26,11 +26,13 @@ const userSchema = mongoose.Schema({
     pools: [{
         address: {
             type: String,
-            required: true
+            required: true,
+            trim: true
         },
         pool: {
             type: String,
-            required: true
+            required: true,
+            trim: true
         },
         name: String
     }],

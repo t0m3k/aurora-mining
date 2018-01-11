@@ -57,6 +57,10 @@ exports.authUser = (req, res) => {
 exports.getUserData = (req, res) => {
     return User.findById(req.userId).lean()
     .then(user => {
+        if(!user) {
+            return res.status(400).json({message: 'Please log in first', loggedIn: false})
+        }
+
         let poolsPromise = []
 
         poolsPromise = user.pools.map((pool) => {
@@ -107,9 +111,9 @@ exports.updateUser = (req, res) => {
 }
 
 exports.deletePool = (req, res) => {
-    console.log(req.userId)
     User.update({_id: req.params.id}, {$pull: {pools: {pool: req.params.pool, address: req.params.address}}})
-    .then(() => {
+    .then((user) => {
+        console.log(user)
         exports.getUserData(req, res)
     })
     .catch((err) => message(req, res, err.message))
