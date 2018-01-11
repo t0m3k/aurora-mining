@@ -136,7 +136,7 @@ const PoolItem = ({
 
     return  <Grid 
                 item
-                xl={4}
+                xl={3}
                 lg={4}
                 md={6}
                 sm={10}
