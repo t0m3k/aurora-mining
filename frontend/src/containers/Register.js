@@ -9,12 +9,12 @@ class Register extends Component {
 
     submit = (values) => {
         const dispatch = this.props.dispatch
+        const { username, password, email, currency } = values
+
         dispatch({type: "LOGIN_USER_START"})
-        return axios.post('/api/users/register', {
-            username: values.username, password: values.password, email: values.email, currency: values.currency
-        })
+        return dispatch(userActions.registerUser(username, password, email, currency))
         .then((resp) => {
-            dispatch(userActions.fetchUser());
+            console.log("Registered")
         })
         .catch((err) => {
             if(err.response){
