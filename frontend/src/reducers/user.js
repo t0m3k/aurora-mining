@@ -7,7 +7,7 @@ const user = (state =
         error: false,
         errorMsg: '',
         loggedIn: false,
-        loading: false,
+        loading: true,
         loaded: false,
         addPoolForm: false
     },
@@ -16,8 +16,7 @@ const user = (state =
         case 'FETCH_USER_START':
             return {
                 ...state,
-                loading: true,
-                loaded: false
+                loading: true
             }
         case 'FETCH_USER_DONE':
         let user = action.user || {}
@@ -30,8 +29,7 @@ const user = (state =
         case 'LOGIN_USER_START':
             return {
                 ...state,
-                loading: true,
-                loaded: false
+                loading: true
             }
         case 'POOL_FORM_OPEN':
             return {
@@ -54,7 +52,8 @@ const user = (state =
             }
         case 'UPDATE_POOL':
             const pools = state.user.pools.map(p => {
-                if((p.pool !== action.pool.pool) && (p.address !== action.pool.address)){
+                console.log(action.pool)
+                if((p.pool !== action.pool.pool) || (p.address !== action.pool.address)){
                     return p
                 }
                 return {...action.pool, name: p.name, _id: p._id }
