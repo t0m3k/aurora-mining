@@ -49,12 +49,12 @@ export function fetchUser() {
 
 export function registerUser(username, password, email, currency) {
     return (dispatch) =>{
-        dispatch({type: "LOGIN_USER_START"})
+        dispatch({type: "REGISTER_USER_START"})
         return axios.post('/api/users/register', {
             username, password, email, currency
         })
         .then((resp) => {
-            saveUserAuth(resp)
+            saveUserAuth(resp.data)
             fetchUser()(dispatch)
             return Promise.resolve()
         })

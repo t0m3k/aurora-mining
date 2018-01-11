@@ -31,6 +31,11 @@ const user = (state =
                 ...state,
                 loading: true
             }
+        case 'REGISTER_USER_START':
+            return {
+                ...state,
+                loading: true
+            }
         case 'POOL_FORM_OPEN':
             return {
                 ...state,

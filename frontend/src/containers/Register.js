@@ -10,11 +10,7 @@ class Register extends Component {
         const dispatch = this.props.dispatch
         const { username, password, email, currency } = values
 
-        dispatch({type: "LOGIN_USER_START"})
         return dispatch(userActions.registerUser(username, password, email, currency))
-        .then((resp) => {
-            console.log("Registered")
-        })
         .catch((err) => {
             if(err.response){
                 if (err.response.status === 409) {
