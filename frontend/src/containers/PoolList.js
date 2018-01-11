@@ -59,7 +59,9 @@ class PoolList extends Component {
 
         return dispatch(userActions.addPool(id, address, pool, name))
         .then(resp => {
-            this.checkUpdates()
+            dispatch(userActions.fetchUser())
+            .then(() => this.checkUpdates())
+            
         })
         .catch(err => {
             throw new SubmissionError({_error: err.response.data.message})

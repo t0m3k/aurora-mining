@@ -31,9 +31,6 @@ const styles = (drawerWidth) => (theme => ({
       padding: theme.spacing.unit * 3,
       height: 'calc(100% - 56px)',
       marginTop: 56
-    },
-    loader: {
-      color: theme.palette.primary[500]
     }
 }))
 

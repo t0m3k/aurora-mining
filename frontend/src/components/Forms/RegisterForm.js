@@ -8,10 +8,13 @@ import { Field, reduxForm } from 'redux-form'
 import * as formHelpers from './helpers'
 
 const styles = theme => ({
-  container: {
-      heigth: "100%",
-      marginTop: "10%"
-  }
+    button: {
+        marginRight: theme.spacing.unit,
+    },
+    container: {
+        heigth: "100%",
+        marginTop: "10%"
+    }
 })
 
 const validate = values => {
@@ -49,7 +52,7 @@ let RegisterForm = (props) => {
         direction='row'
         justify='center'
         >
-            <form onSubmit={handleSubmit} noValidate autoComplete="off">
+            <form onSubmit={handleSubmit} noValidate >
                 <Grid direction='column' spacing={8} container>
                     <Grid item>
                         <Field
@@ -91,16 +94,22 @@ let RegisterForm = (props) => {
 
                     <Grid item>
                         <Button
+                            className={classes.button}
                             type='sumbit'
                             raised 
-                            color="accent"
+                            color="primary"
                             disabled={pristine || submitting}
                         >
                             Register 
                         </Button>
-                        <Link style={{marginLeft: '16px'}} to='/login'>
+                        <Button
+                            className={classes.button}
+                            component={Link}
+                            to='/login'
+                            color="accent"
+                        >
                             Login
-                        </Link>
+                        </Button>
                     </Grid>
 
                 </Grid>
@@ -112,7 +121,6 @@ let RegisterForm = (props) => {
 
 
 RegisterForm = reduxForm({
-    // a unique name for the form
     form: 'register',
     validate
   })(RegisterForm)

@@ -21,7 +21,8 @@ export function fetchUser() {
 
         const localAuth = getUserAuth()
         if(!localAuth) {
-            return dispatch({type: "FETCH_USER_DONE", loggedIn: false, user: undefined})
+            dispatch({type: "FETCH_USER_DONE", loggedIn: false, user: undefined})
+            return(Promise.resolve())
         } else {
             return axios({
                 method: 'get',
@@ -36,6 +37,13 @@ export function fetchUser() {
                 if(user.data.user){
                     dispatch(currencyActions.getCurrency(user.data.user.currency))
                 }
+                return Promise.resolve()
+            })
+            .catch(err => {
+                if(err.response.status === 400) {
+                    clearUserAuth()
+                    dispatch({type: "FETCH_USER_DONE", loggedIn: false})
+                }
             })
         }
     }
@@ -44,21 +52,13 @@ export function fetchUser() {
 export function registerUser(username, password, email, currency) {
     return (dispatch) =>{
         dispatch({type: "LOGIN_USER_START"})
-        axios.post('/api/users/register', {
+        return axios.post('/api/users/register', {
             username, password, email, currency
         })
         .then((resp) => {
             saveUserAuth(resp)
             fetchUser()(dispatch)
-        })
-        .catch((err) => {
-            if(err.response){
-                if (err.response.status === 409) {
-                    dispatch({type: "LOGIN_USER_ERROR", error: "This username is taken."})
-                } else {
-                    dispatch({type: "LOGIN_USER_ERROR", error: "Unknown error"})
-                }
-            }
+            return Promise.resolve()
         })
     }
 }
@@ -139,7 +139,6 @@ export function addPool(id, address, pool, name) {
             }
         })
         .then((resp) => {
-            fetchUser()(dispatch)
             return Promise.resolve()
         })
     }
