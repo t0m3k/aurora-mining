@@ -11,6 +11,8 @@ class Login extends Component {
         const dispatch = this.props.dispatch
         const {username, password} = values
 
+        console.log('SUBMIT LOGIN FORM')
+
         return dispatch(userActions.loginUser(username, password))
         .then(() => {
             dispatch(destroy('login'))
@@ -18,6 +20,7 @@ class Login extends Component {
         .catch((err) => {
             if(err.response){
                 if (err.response.status === 400) {
+                    console.log("Wrong username or password")
                     dispatch({type: "LOGIN_USER_ERROR", error: "Wrong username or password"})
                     throw new SubmissionError({_error: "Wrong username or password"})
                 }
@@ -26,7 +29,7 @@ class Login extends Component {
                 dispatch({type: "LOGIN_USER_ERROR", error: "Unknwonw error"})
                 throw new SubmissionError({_error: "Unknwonw error"})
             }
-        })        
+        })
     }
 
     render() {

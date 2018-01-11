@@ -8,6 +8,7 @@ const user = (state =
         errorMsg: '',
         loggedIn: false,
         loading: false,
+        loaded: false,
         addPoolForm: false
     },
      action) => {
@@ -15,19 +16,22 @@ const user = (state =
         case 'FETCH_USER_START':
             return {
                 ...state,
-                loading: true
+                loading: true,
+                loaded: false
             }
         case 'FETCH_USER_DONE':
         let user = action.user || {}
             return {
                 user: user,
                 loggedIn: action.loggedIn,
-                loading: false
+                loading: false,
+                loaded: true
             }
         case 'LOGIN_USER_START':
             return {
                 ...state,
                 loading: true,
+                loaded: false
             }
         case 'POOL_FORM_OPEN':
             return {
@@ -43,6 +47,7 @@ const user = (state =
             return {
                 ...state,
                 loading: false,
+                loaded: true,
                 loggedIn: false,
                 error: true,
                 errorMsg: action.error
@@ -64,7 +69,9 @@ const user = (state =
         case 'LOGOUT_USER':
             return {
                 user: {},
-                loggedIn: false
+                loggedIn: false,
+                loading: false,
+                loaded: true
             }
         default:
             return state

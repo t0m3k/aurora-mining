@@ -80,7 +80,7 @@ exports.getUserData = (req, res) => {
 }
 
 exports.addPool = (req, res) => {
-    return User.findById(req.userId)
+    return User.findById(req.params.id)
     .then(user => {
         if(user.pools.some(p => ((p.address === req.body.address) && (p.pool === req.body.pool)))){
             return res.status(409).json({message: 'This address on this pool already exists!'})
@@ -107,7 +107,8 @@ exports.updateUser = (req, res) => {
 }
 
 exports.deletePool = (req, res) => {
-    User.update({username: req.params.username}, {$pull: {pools: {pool: req.params.pool, address: req.params.address}}})
+    console.log(req.userId)
+    User.update({_id: req.params.id}, {$pull: {pools: {pool: req.params.pool, address: req.params.address}}})
     .then(() => {
         exports.getUserData(req, res)
     })

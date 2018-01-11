@@ -8,11 +8,11 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog'
 import AddPoolForm from '../components/Forms/AddPoolForm'
-import axios from 'axios'
 import Grid from 'material-ui/Grid/Grid'
 import { SubmissionError } from 'redux-form'
 import poolsControler from '../controllers/pools'
 import {timeCounter} from '../controllers/helper'
+import * as userActions from '../actions/user'
 
 
 class PoolList extends Component {
@@ -39,14 +39,8 @@ class PoolList extends Component {
 
     deletePool = (pool, address) => {
         const dispatch = this.props.dispatch
-        const username = this.props.user.username
-        const url = `/api/users/u/${username}/${pool}/${address}`
-        return () => {
-        return axios.delete(url)
-        .then(resp => {
-            dispatch({type: "FETCH_USER_DONE", ...resp.data})
-            this.checkUpdates()
-        })}
+        const id = this.props.user._id
+        return () => dispatch(userActions.deletePool(id, pool, address))
     }
 
     handleClickOpen = () => {
@@ -60,17 +54,11 @@ class PoolList extends Component {
     }
 
     addPoolSubmit = ({address, pool, name}) => {
-        const username = this.props.user.username
-        const url = `/api/users/u/${username}`
+        const id = this.props.user._id
         const dispatch = this.props.dispatch
 
-        return axios.post(url, {
-            address: address,
-            pool: pool,
-            name: name
-        })
+        return dispatch(userActions.addPool(id, address, pool, name))
         .then(resp => {
-            dispatch({type: "FETCH_USER_DONE", ...resp.data})
             this.checkUpdates()
         })
         .catch(err => {

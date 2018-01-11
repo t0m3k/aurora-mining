@@ -38,8 +38,6 @@ let LoginForm = (props) => {
 
     const { handleSubmit, pristine, submitting, classes, errorMsg } = props
 
-    console.log(props)
-
     return (
         <Grid
         container

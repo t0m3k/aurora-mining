@@ -20,8 +20,6 @@ export function fetchUser() {
         dispatch({type: "FETCH_USER_START"})
 
         const localAuth = getUserAuth()
-
-        console.log(localAuth)
         if(!localAuth) {
             return dispatch({type: "FETCH_USER_DONE", loggedIn: false, user: undefined})
         } else {
@@ -50,7 +48,6 @@ export function registerUser(username, password, email, currency) {
             username, password, email, currency
         })
         .then((resp) => {
-            console.log(resp)
             saveUserAuth(resp)
             fetchUser()(dispatch)
         })
@@ -74,6 +71,74 @@ export function loginUser(username, password) {
         })
         .then((resp) => {
             saveUserAuth(resp.data)
+            fetchUser()(dispatch)
+            return Promise.resolve()
+        })
+    }
+}
+
+export function deletePool(id, pool, address) {
+    return (dispatch) => {
+        const localAuth = getUserAuth()
+
+        const url = `/api/users/u/${id}/${pool}/${address}`
+        return axios({
+            method: 'delete',
+            url: url,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${ localAuth.token }`
+            }
+        })
+        .then((resp) => {
+            fetchUser()(dispatch)
+            return Promise.resolve()
+        })
+    }
+}
+
+export function updateUser(id, currency) {
+    return (dispatch) => {
+        const localAuth = getUserAuth()
+
+        const url = `/api/users/u/${id}/`
+        return axios({
+            method: 'put',
+            url,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${ localAuth.token }`
+            },
+            data: {
+                currency
+            }
+        })
+        .then((resp) => {
+            fetchUser()(dispatch)
+            return Promise.resolve()
+        })
+    }
+}
+
+export function addPool(id, address, pool, name) {
+    return (dispatch) => {
+        const localAuth = getUserAuth()
+
+        const url = `/api/users/u/${id}/`
+        return axios({
+            method: 'post',
+            url,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${ localAuth.token }`
+            },
+            data: {
+                address,
+                pool,
+                name
+            }
+        })
+        .then((resp) => {
             fetchUser()(dispatch)
             return Promise.resolve()
         })

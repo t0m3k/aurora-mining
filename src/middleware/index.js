@@ -2,8 +2,6 @@ const   jwt         = require('jsonwebtoken'),
         SECRET      = require('../../local_conf.js').SECRET
 
 exports.isLoggedIn = function(req, res, next) {
-
-    console.log(req.headers)
     try {
         const token = req.headers.authorization.split(" ")[1]
         

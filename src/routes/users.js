@@ -15,8 +15,8 @@ router.route("/u/:id")
 .post(middleware.correctUser, usersControllers.addPool)
 .put(middleware.correctUser, usersControllers.updateUser)
 
-router.route(middleware.correctUser, "/u/:id/:pool/:address")
-.delete(usersControllers.deletePool)
+router.route("/u/:id/:pool/:address")
+.delete(middleware.correctUser, usersControllers.deletePool)
 
 router.route("/")
 .get(middleware.isLoggedIn, usersControllers.getUserData)
