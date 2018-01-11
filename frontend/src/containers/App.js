@@ -18,9 +18,8 @@ import ArrowLeft from 'material-ui-icons/ArrowBack'
 import HomeIcon from 'material-ui-icons/Home'
 import SettingsIcon from 'material-ui-icons/Settings'
 
-import '../css/spinner.css'
-
 import AppStyles from './AppStyles.js'
+import CircularProgress from 'material-ui/Progress/CircularProgress';
 
 const title = "Aurora Mining Stats"
 
@@ -52,7 +51,7 @@ componentWillMount(){
 }
 
 render() {
-  const { loggedIn, classes, theme, loading } = this.props
+  const { loggedIn, classes, theme, loaded, loading } = this.props
 
   const drawer = (
       <div onClick={this.handleDrawerToggle}>
@@ -131,9 +130,14 @@ render() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography type="title" color="inherit" noWrap>
+            <Typography type="title" color="inherit" style={{flex: 1}} noWrap>
               {title}
             </Typography>
+            {loading &&
+             <CircularProgress
+              color = 'accent'
+             />
+            }
           </Toolbar>
         </AppBar>
 
@@ -151,21 +155,17 @@ render() {
         >
           {drawer}
         </Drawer>
+          {loaded && 
+          <main className={classes.content}>
+            <Switch>
+              <Route exact path='/' render={() => loggedIn ? <PoolList /> : <Redirect to='/login' /> } />
+              <Route exact path='/settings' render={() => loggedIn ? <Settings /> : <Redirect to='/login' /> } />
+              <Route exact path='/login' render={() => (loggedIn && loaded) ? <Redirect to='/' /> : <Login /> } />
+              <Route exact  path='/register' render={() => (loggedIn && loaded) ? <Redirect to='/' /> : <Register /> } />
+            </Switch>
+          </main>
 
-        <main className={classes.content}>
-        {loading &&
-          <div className={"loader " + classes.loader}>Loading...</div>
-        }
-
-        {!loading &&
-          <Switch>
-            <Route exact path='/' render={() => loggedIn ? <PoolList /> : <Redirect to='/login' /> } />
-            <Route exact path='/settings' render={() => loggedIn ? <Settings /> : <Redirect to='/login' /> } />
-            <Route path='/login' render={() => loggedIn ? <Redirect to='/' /> : <Login /> } />
-            <Route path='/register' render={() => loggedIn ? <Redirect to='/' /> : <Register /> } />
-          </Switch>
-        }
-        </main>
+          }
 
       </div>
     </div>
