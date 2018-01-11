@@ -36,7 +36,7 @@ const validate = values => {
 
 let LoginForm = (props) => {
 
-    const { handleSubmit, pristine, submitting, classes, error } = props
+    const { handleSubmit, pristine, submitting, classes, errorMsg } = props
 
     return (
         <Grid
@@ -72,7 +72,7 @@ let LoginForm = (props) => {
 
                     <Grid item>
                         <Typography color='error'>
-                            {error ? error : ' '}
+                            {errorMsg ? errorMsg : ' '}
                         </Typography>
                     </Grid>
 
@@ -100,6 +100,7 @@ let LoginForm = (props) => {
 
 LoginForm = reduxForm({
     form: 'login',
+    destroyOnUnmount: false,
     validate
   })(LoginForm)
 

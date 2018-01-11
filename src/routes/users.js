@@ -6,23 +6,20 @@ var express                 = require('express'),
 var router = express.Router({mergeParams: true});
 
 router.route("/register")
-.post(usersControllers.createUser);
+.post(usersControllers.createUser)
 
 router.route("/login")
-.post(usersControllers.authUser);
+.post(usersControllers.authUser)
 
-router.route("/logout")
-.get(usersControllers.logOut);
+router.route("/u/:id")
+.post(middleware.correctUser, usersControllers.addPool)
+.put(middleware.correctUser, usersControllers.updateUser)
 
-router.route("/u/:username")
-.post(usersControllers.addPool)
-.put(usersControllers.updateUser)
-
-router.route("/u/:username/:pool/:address")
-.delete(usersControllers.deletePool)
+router.route("/u/:id/:pool/:address")
+.delete(middleware.correctUser, usersControllers.deletePool)
 
 router.route("/")
-.get(usersControllers.getUserData);
+.get(middleware.isLoggedIn, usersControllers.getUserData)
 
 
-module.exports = router;
+module.exports = router

@@ -3,10 +3,8 @@ import { withStyles } from 'material-ui/styles'
 import Grid from 'material-ui/Grid/Grid'
 import Button from 'material-ui/Button/Button'
 import { MenuItem } from 'material-ui/Menu'
-import { Link } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
 import * as formHelpers from './helpers'
-import red from 'material-ui/colors/red';
 
 const styles = theme => ({
   container: {

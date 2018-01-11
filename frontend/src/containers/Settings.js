@@ -3,26 +3,17 @@ import { connect } from 'react-redux'
 import * as userActions from '../actions/user'
 import SettingsForm from '../components/Forms/SettingsForm'
 import { SubmissionError } from 'redux-form'
-import axios from 'axios'
 
 class Settings extends Component {
 
-    submit = (values) => {
+    submit = ({currency}) => {
         const dispatch = this.props.dispatch
-        const username = this.props.user.username
-        const url = `/api/users/u/${ username }`
+        const id = this.props.user._id
+        
 
-        return axios.put(url, {
-            currency: values.currency
-        })
-        .then((resp) => {
-            dispatch(userActions.fetchUser());
-        })
+        dispatch(userActions.updateUser(id, currency))
         .catch((err) => {
-            if(err.response){
-                dispatch({type: "LOGIN_USER_ERROR", error: "Uknown error."})
-                throw new SubmissionError({_error: "Uknown error."})
-            }
+            throw new SubmissionError({_error: "Uknown error."})
         })
         
     }
