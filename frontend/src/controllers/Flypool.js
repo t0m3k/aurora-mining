@@ -27,19 +27,20 @@ function apiCall(address, type) { // fetch data from flypool api
 
 export function getFresh(address) {
   // create promises for getting all relevant data
-  let statsPromise = apiCall(address, "currentStats");
-  let configPromise = apiCall(address, "settings");
-  let historyPromise = apiCall(address, "history");
+  let statsPromise = apiCall(address, "currentStats")
+  let configPromise = apiCall(address, "settings")
+  let historyPromise = apiCall(address, "history")
 
   return Promise.all([statsPromise, configPromise, historyPromise])
   .then(results => {
-      let stats = results[0];
-      let config = results[1];
+
+      let stats = results[0]
+      let config = results[1]
       let history = results[2].map(item => ({
           hashRate: item.currentHashrate,
           avgHashRate: item.averageHashrate,
           time: new Date(item.time * 1000)
-      }));
+      }))
 
 
       // calculating estemated next pay time
