@@ -22,5 +22,9 @@
     "build": "rm -rf client && cd frontend && npm i && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
+  },
+  "devDependencies": {
+    "eslint": "^4.15.0",
+    "eslint-plugin-react": "^7.5.1"
   }
 }

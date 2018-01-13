@@ -17,4 +17,4 @@ Pools.getFresh.poolGold = function(address) {
     return poolGold.getFresh(address)
 }
 
-export default Pools;
+export default Pools
