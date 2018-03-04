@@ -21,9 +21,7 @@ const HOST = process.env.HOST || LOCALCONF.HOST
 const MONGODB = LOCALCONF.MONGODB
 
 // CUSTOM SETTINGS
-mongoose.connect(MONGODB, {
-    useMongoClient: true
-})
+mongoose.connect(MONGODB)
 
 app.use(morgan('dev'))
 

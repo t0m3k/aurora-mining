@@ -1,7 +1,7 @@
-import * as helper from './helper';
+import * as helper from './Helper';
 
 async function apiCall(address) { // fetch data from flypool api
-    return fetch(`http://cors-anywhere.herokuapp.com/https://mine.pool.gold/api/worker_stats?${ address }`, {origin: 'some.web'})
+    return fetch(`https://cors-anywhere.herokuapp.com/https://mine.pool.gold/api/worker_stats?${ address }`, {origin: 'some.web'})
     .then(resp => {
       if(!resp.ok) {
         if(resp.status >=400 && resp.status < 500) {

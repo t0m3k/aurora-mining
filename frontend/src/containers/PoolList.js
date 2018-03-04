@@ -11,7 +11,7 @@ import AddPoolForm from '../components/Forms/AddPoolForm'
 import Grid from 'material-ui/Grid/Grid'
 import { SubmissionError } from 'redux-form'
 import poolsControler from '../controllers/pools'
-import {timeCounter} from '../controllers/helper'
+import {timeCounter} from '../controllers/Helper'
 import * as userActions from '../actions/user'
 
 

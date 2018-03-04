@@ -1,4 +1,4 @@
-import * as helpers from '../controllers/helper'
+import * as helpers from '../controllers/Helper'
 
 export function getCurrency(currency) {
     return (dispatch) =>{

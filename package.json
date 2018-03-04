@@ -9,22 +9,22 @@
   "author": "Tomasz Tracz",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.17.1",
+    "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.2",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
-    "jsonwebtoken": "^8.1.0",
-    "mongoose": "^4.13.2",
+    "jsonwebtoken": "^8.2.0",
+    "mongoose": "^5.0.8",
     "morgan": "^1.9.0"
   },
   "scripts": {
-    "build": "rm -rf client && cd frontend && npm i && npm run build",
+    "build": "rm -rf client && cp _local_conf.js local_conf.js && cd frontend && npm i && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
   "devDependencies": {
-    "eslint": "^4.15.0",
-    "eslint-plugin-react": "^7.5.1"
+    "eslint": "^4.18.2",
+    "eslint-plugin-react": "^7.7.0"
   }
 }

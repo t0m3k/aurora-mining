@@ -1,5 +1,5 @@
 import React from 'react'
-import {dateToString} from '../controllers/helper'
+import {dateToString} from '../controllers/Helper'
 import Grid from 'material-ui/Grid/Grid'
 import Paper from 'material-ui/Paper/Paper'
 import Typography from 'material-ui/Typography/Typography'

@@ -1,4 +1,4 @@
-import * as flypool from './flypool'
+import * as flypool from './Flypool'
 import * as poolGold from './poolGold'
 import * as nicehash from './nicehash'
 

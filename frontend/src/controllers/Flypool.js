@@ -1,4 +1,4 @@
-import * as helper from './helper';
+import * as helper from './Helper';
 
 function apiCall(address, type) { // fetch data from flypool api
   return fetch(`https://api-zcash.flypool.org/miner/${ address }/${ type }`)

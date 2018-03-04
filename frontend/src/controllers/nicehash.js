@@ -1,4 +1,4 @@
-import * as helper from './helper'
+import * as helper from './Helper'
 import axios from 'axios'
 
 function btcApi() { // fetch data from flypool api
