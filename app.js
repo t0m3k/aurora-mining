@@ -38,9 +38,9 @@ app.use("/api/pools", poolsRoutes)
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname+'/client/index.html'))
-  });
+  })
 
 app.listen(PORT, function(){
-    console.log('Server is running at');
-    console.log(`http://localhost:${PORT}`);
-});
+    console.log('Server is running at')
+    console.log(`http://localhost:${PORT}`)
+})

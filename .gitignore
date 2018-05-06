@@ -82,3 +82,4 @@ yarn-error.log*
 
 # added by me
 local_conf.js
+.vscode/settings.json
