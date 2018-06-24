@@ -1,15 +1,13 @@
-var express                 = require('express'),
-    User                    = require('../models/user'),
-    pools                   = require('../controllers/pools')
-    middleware              = require('../middleware');
+var express = require('express'),
+    pools = require('../controllers/pools')
 
-var router = express.Router({mergeParams: true});
+var router = express.Router({ mergeParams: true })
 
-router.route("/:pool/:address")
-.get(pools.getMinerStats);
+router.route('/:pool/:address')
+    .get(pools.getMinerStats)
 
 
-router.route("/:pool/")
-.post(pools.addMinerStats);
+router.route('/:pool/')
+    .post(pools.addMinerStats)
 
-module.exports = router;
+module.exports = router
